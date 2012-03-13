@@ -44,6 +44,7 @@
             $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='prev'>< Back</a>");
 
             $("#" + stepName + "Prev").bind("click", function(e) {
+                delEvents();
                 $("#" + stepName).hide();
                 $("#step" + (i - 1)).show();
                 $(submmitButtonName).hide();
@@ -52,10 +53,13 @@
         }
 
         function createNextButton(i) {
+
             var stepName = "step" + i;
             $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Next' class='next'>Next ></a>");
 
             $("#" + stepName + "Next").bind("click", function(e) {
+                e.preventDefault();
+                delEvents();
                 $("#" + stepName).hide();
                 $("#step" + (i + 1)).show();
                 if (i + 2 == count)
@@ -67,7 +71,55 @@
         function selectStep(i) {
             $("#steps li").removeClass("current");
             $("#stepDesc" + i).addClass("current");
+            fillevents();
         }
+
+        function fillevents()
+        {
+
+
+                //Fills mySelect with options
+            if($('#stepDesc0').hasClass('current')){
+                $.each(firstTimeSlotEvs, function(val, text) {
+                
+                    $('#mySelect').append(
+                        $('<option></option>').val(val).html(text)
+                    );
+                    
+                });
+            } else if($('#stepDesc1').hasClass('current')){
+                $.each(secondTimeSlotEvs, function(val, text) {
+                
+                    $('#mySelect').append(
+                        $('<option></option>').val(val).html(text)
+                    );
+                    
+                });
+            } else if($('#stepDesc2').hasClass('current')){
+                $.each(thirdTimeSlotEvs, function(val, text) {
+                
+                    $('#mySelect').append(
+                        $('<option></option>').val(val).html(text)
+                    );
+                    
+                });
+            } else if($('#stepDesc3').hasClass('current')){
+                $.each(fourthTimeSlotEvs, function(val, text) {
+                
+                    $('#mySelect').append(
+                        $('<option></option>').val(val).html(text)
+                    );
+                    
+                });
+            }
+        }
+
+        //delete events from previous session selection
+        function delEvents()
+        {
+            $('#mySelect').find('option').remove();
+        }
+
 
     }
 })(jQuery); 

@@ -123,6 +123,89 @@ else if(isset($_POST['Submit']))
         .sub { clear:left; }
 
     </style>
+    <script type="text/javascript">
+
+        var firstTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
+                                $EvsIds = explode("|", $EvsData);
+                                $Evs = array();
+                                $sql = "SELECT * from events WHERE timeSlot= 1";
+                                if(!($result = mysql_query($sql)))
+                                    header("Location: login.php?error=2");
+
+                                $x = 0;
+                                while($row = mysql_fetch_array($result)){
+                                    $Evs[$x] = $row['name'];
+                                    $x++;
+                                }
+
+                                for($i=0;$i<sizeof($Evs);$i++) 
+                                    if($i == sizeof($Evs)-1)
+                                        print "'".$Evs[$i]."'";
+                                    else
+                                        print "'".$Evs[$i]."', ";
+                        ?>];
+
+        var secondTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
+                                $EvsIds = explode("|", $EvsData);
+                                $Evs = array();
+                                $sql = "SELECT * from events WHERE timeSlot= 2";
+                                if(!($result = mysql_query($sql)))
+                                    header("Location: login.php?error=2");
+
+                                $x = 0;
+                                while($row = mysql_fetch_array($result)){
+                                    $Evs[$x] = $row['name'];
+                                    $x++;
+                                }
+
+                                for($i=0;$i<sizeof($Evs);$i++) 
+                                    if($i == sizeof($Evs)-1)
+                                        print "'".$Evs[$i]."'";
+                                    else
+                                        print "'".$Evs[$i]."', ";
+                        ?>];
+
+        var thirdTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
+                                $EvsIds = explode("|", $EvsData);
+                                $Evs = array();
+                                $sql = "SELECT * from events WHERE timeSlot= 3";
+                                if(!($result = mysql_query($sql)))
+                                    header("Location: login.php?error=2");
+
+                                $x = 0;
+                                while($row = mysql_fetch_array($result)){
+                                    $Evs[$x] = $row['name'];
+                                    $x++;
+                                }
+
+                                for($i=0;$i<sizeof($Evs);$i++) 
+                                    if($i == sizeof($Evs)-1)
+                                        print "'".$Evs[$i]."'";
+                                    else
+                                        print "'".$Evs[$i]."', ";
+                        ?>];
+
+        var fourthTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
+                                $EvsIds = explode("|", $EvsData);
+                                $Evs = array();
+                                $sql = "SELECT * from events WHERE timeSlot= 4";
+                                if(!($result = mysql_query($sql)))
+                                    header("Location: login.php?error=2");
+
+                                $x = 0;
+                                while($row = mysql_fetch_array($result)){
+                                    $Evs[$x] = $row['name'];
+                                    $x++;
+                                }
+
+                                for($i=0;$i<sizeof($Evs);$i++) 
+                                    if($i == sizeof($Evs)-1)
+                                        print "'".$Evs[$i]."'";
+                                    else
+                                        print "'".$Evs[$i]."', ";
+                        ?>];
+    </script>
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
     <script type="text/javascript" src="formToWizard.js"></script>
     <script type="text/javascript">
@@ -300,7 +383,7 @@ else if(isset($_POST['Submit']))
             ]
         ];
 */
-
+/*
 var firstTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
                         $EvsIds = explode("|", $EvsData);
                         $Evs = array();
@@ -329,7 +412,7 @@ var firstTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
             );
             } else { document.write('TEST'); }
         });
-
+*/
         //Displays value of each event (description) when the option
         //is selected
         $("#mySelect").change(function () {
