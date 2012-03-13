@@ -3,7 +3,7 @@ require_once("cookie.php");
 require_once("config.php");
 db_login();
 $cookie = new cookie();
-
+//TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTCOMMIT
 /*if($cookie->verifyCookie())
     echo "Cookie verified";
 else
