@@ -68,7 +68,7 @@ class system
     //populates object with events that have slots left
 	private function populate()
 	{
-		$eventData = mysql_query("SELECT * FROM events");
+		$eventData = mysql_query("SELECT * FROM `testschema`");
 		$i = 1;
 		while($current = mysql_fetch_assoc($eventData))
 		{
@@ -111,7 +111,7 @@ class system
 	//return long events in a string
 	public function getLongEvents()
 	{
-		$event_query = "SELECT * FROM  events WHERE length=100";
+		$event_query = "SELECT * FROM  `testschema` WHERE length=100";
 		$event_table = mysql_query($event_query);
 		$result = "";
 		if(!$event_table)
@@ -161,7 +161,7 @@ class system
     //get events from time slot	
 	public function getFromTimeSlot($slot)
 	{
-		$event_query = "SELECT * FROM  events WHERE timeSlot=".$slot;
+		$event_query = "SELECT * FROM  `testschema` WHERE timeslot=".$slot;
 		$event_table = mysql_query($event_query);
 		$result = "";
 		if(!$event_table)
@@ -181,6 +181,30 @@ class system
 		}
 		//must use mysql_fetch_assoc to cycle through on other side	
 	}
+
+    public function getTitlesFromTimeSlot($slot)
+    {
+        $sql = "SELECT * from `testschema`";
+        if(!($result = mysql_query($sql)))
+            header("Location: login.php?error=2");
+
+        $res = "";
+        while($row = mysql_fetch_array($result)){
+            $idsFromDB = $row['timeslot'];
+            $ids = explode(",", $idsFromDB);
+            for($i = 0; $i < sizeof($ids); $i++)
+            {
+                if($ids[$i] == $slot && !empty($res))
+                    $res = $res."|".$row['title'];
+                else if ($ids[$i] == $slot)
+                    $res = $res.$row['title'];
+
+            }
+        }
+
+        return $res;
+        
+    }
 	
     //add one to the slotsAvailable in the system
 	public function free($eventNum)
@@ -200,7 +224,7 @@ class system
 	{
 		$best_event = 1;
 		$best_ratio = 0;
-		$eventsQuery = "SELECT * FROM events";
+		$eventsQuery = "SELECT * FROM `testschema`";
 		$all_events = mysql_query($eventsQuery);
 		$rowID = 1;
 		while ($row = mysql_fetch_assoc($all_events)) {
@@ -235,7 +259,7 @@ class system
             //evemt full
 			if($userEvents[$j] != -1 && self::$events[$userEvents[$j]] < 1)
 			{
-                $sql = "SELECT * from events WHERE id=".$userEvents[$j];
+                $sql = "SELECT * from `testschema` WHERE id=".$userEvents[$j];
                 if(!($result = mysql_query($sql)))
                    // header("Location: login.php?error=2");
                 while($row = mysql_fetch_array($result));
@@ -248,17 +272,17 @@ class system
             {
                 //Update available slots
                 $i = $userEvents[$j];
-                $countQuery="SELECT * FROM events WHERE id='".$i."'";
+                $countQuery="SELECT * FROM `testschema` WHERE id='".$i."'";
                 $result = mysql_query($countQuery);
                 $temp = mysql_fetch_assoc($result);
                 $slots = $temp["slotsAvailable"] - 1;
                 $eventCount[$j] = $slots;
-                $updateQuery = "UPDATE events SET slotsAvailable=".$eventCount[$j]." WHERE id=".$i;
+                $updateQuery = "UPDATE `testschema` SET slotsAvailable=".$eventCount[$j]." WHERE id=".$i;
                 $check = mysql_query($updateQuery);
                 if(!$check)
                     header("Location: login.php?error=2");
                 //Update attendees
-                $current = "SELECT * FROM events WHERE id=".$i;
+                $current = "SELECT * FROM `testschema` WHERE id=".$i;
                 if(!($currentTable = mysql_query($current)))
                    header("Location: login.php?error=2");
                 $currentRow = mysql_fetch_assoc($currentTable);
@@ -266,7 +290,7 @@ class system
                     $names = $currentRow['attendees']."|".$user->GetID();
                 else
                     $names = $user->GetID();
-                $nameAdd = "UPDATE events SET attendees='".$names."' WHERE id=".$i;
+                $nameAdd = "UPDATE `testschema` SET attendees='".$names."' WHERE id=".$i;
                 if(!(mysql_query($nameAdd)))
                     header("Location: login.php?error=2");
             }
@@ -288,7 +312,7 @@ class system
 	//when called returns all the users attending a certain event in the form lastname, first
 	public function displayByEvent($event)
 	{
-		$participantQuery = "SELECT * FROM events WHERE id=".$event;
+		$participantQuery = "SELECT * FROM `testschema` WHERE id=".$event;
 		$participantList = mysql_query($participantQuery);
 		$participantArray = mysql_fetch_assoc($participantList);
 		$participants = $participantArray["attendees"];
@@ -348,7 +372,7 @@ class system
 	//could be put in some sort of admin page or something so all the emails of people attending an event can be gotten
 	public function eventEmails($id)
 	{
-		$participantQuery = "SELECT * FROM events WHERE id=".$event;
+		$participantQuery = "SELECT * FROM `testschema` WHERE id=".$event;
 		$participantList = mysql_query($participantQuery);
 		if(!$participantList)
 		{}
@@ -367,6 +391,7 @@ class system
 		}
 		return $attendees;//names seperated by |
 	}
+
 
 
     //only reserves slot from system

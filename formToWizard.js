@@ -45,6 +45,7 @@
 
             $("#" + stepName + "Prev").bind("click", function(e) {
                 delEvents();
+                $("#message_display").html('');
                 $("#" + stepName).hide();
                 $("#step" + (i - 1)).show();
                 $(submmitButtonName).hide();
@@ -60,6 +61,7 @@
             $("#" + stepName + "Next").bind("click", function(e) {
                 e.preventDefault();
                 delEvents();
+                $("#message_display").html('');
                 $("#" + stepName).hide();
                 $("#step" + (i + 1)).show();
                 if (i + 2 == count)

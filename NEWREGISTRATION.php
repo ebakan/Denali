@@ -3,7 +3,6 @@ require_once("cookie.php");
 require_once("config.php");
 db_login();
 $cookie = new cookie();
-//TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTCOMMIT
 /*if($cookie->verifyCookie())
     echo "Cookie verified";
 else
@@ -125,85 +124,49 @@ else if(isset($_POST['Submit']))
     </style>
     <script type="text/javascript">
 
-        var firstTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
-                                $EvsIds = explode("|", $EvsData);
-                                $Evs = array();
-                                $sql = "SELECT * from events WHERE timeSlot= 1";
+        /*var firstTimeSlotEvs = {<?php 
+                                $sql = "SELECT * from `testschema` WHERE timeSlot= 1";
                                 if(!($result = mysql_query($sql)))
                                     header("Location: login.php?error=2");
 
-                                $x = 0;
                                 while($row = mysql_fetch_array($result)){
-                                    $Evs[$x] = $row['name'];
-                                    $x++;
+                                        echo "'".$row['description']."' : '".$row['title']."', ";
                                 }
 
-                                for($i=0;$i<sizeof($Evs);$i++) 
-                                    if($i == sizeof($Evs)-1)
-                                        print "'".$Evs[$i]."'";
-                                    else
-                                        print "'".$Evs[$i]."', ";
-                        ?>];
-
-        var secondTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
-                                $EvsIds = explode("|", $EvsData);
-                                $Evs = array();
-                                $sql = "SELECT * from events WHERE timeSlot= 2";
-                                if(!($result = mysql_query($sql)))
-                                    header("Location: login.php?error=2");
-
-                                $x = 0;
-                                while($row = mysql_fetch_array($result)){
-                                    $Evs[$x] = $row['name'];
-                                    $x++;
-                                }
-
-                                for($i=0;$i<sizeof($Evs);$i++) 
-                                    if($i == sizeof($Evs)-1)
-                                        print "'".$Evs[$i]."'";
-                                    else
-                                        print "'".$Evs[$i]."', ";
-                        ?>];
-
-        var thirdTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
-                                $EvsIds = explode("|", $EvsData);
-                                $Evs = array();
-                                $sql = "SELECT * from events WHERE timeSlot= 3";
-                                if(!($result = mysql_query($sql)))
-                                    header("Location: login.php?error=2");
-
-                                $x = 0;
-                                while($row = mysql_fetch_array($result)){
-                                    $Evs[$x] = $row['name'];
-                                    $x++;
-                                }
-
-                                for($i=0;$i<sizeof($Evs);$i++) 
-                                    if($i == sizeof($Evs)-1)
-                                        print "'".$Evs[$i]."'";
-                                    else
-                                        print "'".$Evs[$i]."', ";
-                        ?>];
-
-        var fourthTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
-                                $EvsIds = explode("|", $EvsData);
-                                $Evs = array();
-                                $sql = "SELECT * from events WHERE timeSlot= 4";
-                                if(!($result = mysql_query($sql)))
-                                    header("Location: login.php?error=2");
-
-                                $x = 0;
-                                while($row = mysql_fetch_array($result)){
-                                    $Evs[$x] = $row['name'];
-                                    $x++;
-                                }
-
-                                for($i=0;$i<sizeof($Evs);$i++) 
-                                    if($i == sizeof($Evs)-1)
-                                        print "'".$Evs[$i]."'";
-                                    else
-                                        print "'".$Evs[$i]."', ";
-                        ?>];
+                        ?>};
+*/
+var firstTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSlot('1'));
+                               for($i = 0; $i < sizeof($evs); $i++) 
+                                if($i == sizeof($evs)-1)
+                                   echo "'test".$i."' : '".$evs[$i]."'"; 
+                                else
+                                   echo "'test".$i."' : '".$evs[$i]."', "; 
+                                   
+                                   ?> };
+var secondTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSlot('2'));
+                               for($i = 0; $i < sizeof($evs); $i++) 
+                                if($i == sizeof($evs)-1)
+                                   echo "'test".$i."' : '".$evs[$i]."'"; 
+                                else
+                                   echo "'test".$i."' : '".$evs[$i]."', "; 
+                                   
+                                   ?> };
+var thirdTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSlot('3'));
+                               for($i = 0; $i < sizeof($evs); $i++) 
+                                if($i == sizeof($evs)-1)
+                                   echo "'test".$i."' : '".$evs[$i]."'"; 
+                                else
+                                   echo "'test".$i."' : '".$evs[$i]."', "; 
+                                   
+                                   ?> };
+var fourthTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSlot('4'));
+                               for($i = 0; $i < sizeof($evs); $i++) 
+                                if($i == sizeof($evs)-1)
+                                   echo "'test".$i."' : '".$evs[$i]."'"; 
+                                else
+                                   echo "'test".$i."' : '".$evs[$i]."', "; 
+                                   
+                                   ?> };
     </script>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
@@ -331,7 +294,6 @@ else if(isset($_POST['Submit']))
         info on hover.
     -->
     <script type="text/javascript">                                         
-
         var myOptions = {
 
             <?php
@@ -341,15 +303,15 @@ else if(isset($_POST['Submit']))
                 for($i = 0; $i < sizeof($events); $i++)
                 {
                     $limit = sizeof($events)-1;
-                    $sql = "SELECT * from events WHERE id='".$events[$i]."'";
+                    $sql = "SELECT * from `testschema` WHERE id='".$events[$i]."'";
                     if(!($result = mysql_query($sql)))
                         header("Location: login.php?error=2");
                     while($row = mysql_fetch_array($result))
                     {
                         if($i === $limit)
-                            echo "'".$row['description']."' : '".$row['name']."' ";
+                            echo "'".$row['description']."' : '".$row['title']."' ";
                         else
-                            echo "'".$row['description']."' : '".$row['name']."', ";
+                            echo "'".$row['description']."' : '".$row['title']."', ";
                     }
                 }
 
@@ -415,17 +377,18 @@ var firstTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
 */
         //Displays value of each event (description) when the option
         //is selected
+
         $("#mySelect").change(function () {
             var str = "";
             $("select#mySelect option:selected").each(function () {
-            /*    str += $(this).val(); /* + " " + $(this).attr('id');*/
-                sayHi();
+                str += $(this).val(); /* + " " + $(this).attr('id');*/
+                //sayHi();
             });
             $("#message_display").text(str);
         })
         .trigger('change');
 
-        function sayHi() { alert("hi"); }
+        //function sayHi() { alert("hi"); }
                     
     </script>
 
