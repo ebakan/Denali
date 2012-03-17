@@ -54,444 +54,218 @@ function test_login($username, $id)
 	return TRUE;
 }
 
-/* Main singleton  system class that deals directly with the database.
-* each user will deal with a system object and everything will be
-* screened before calling register($user) to make the changes
-* final in the database
-*/
+/**
+ * So this is our new system - it's no longer unnecessarily a singleton and returns actual
+ * objects :)
+ */
 class system
 {
-	private static $events; //array to be set in the constructor, indeces are the event ids and values are the slots available
-	private static $instance;
-    private static $users = array();
-	
-    //populates object with events that have slots left
-	private function populate()
-	{
-		$eventData = mysql_query("SELECT * FROM `testschema`");
-		$i = 1;
-		while($current = mysql_fetch_assoc($eventData))
-		{
-			self::$events[$i] = $current["slotsAvailable"];
-			$i = $i + 1;
-		}
-	}
-	
-    //singleton object return
-	public function getInstance()
-	{ 
-		if(!self::$instance) 
-		{
-			self::$instance = new system(); 
-            system::populate();
-		}
-		return self::$instance; 
-	} 
-	
-    //returns a string of all valid events with slots
-	public function getValidEvents()
-	{
-		$result = "";
-		$i = 1;
+    private $connection;
+    private $eventstable;
+    private $registrationstable;
+    private $studentdatatable;
+    /** Having an empty constructor and just declaring names in here makes it easy
+     *  In the future this might be changed to be more extensible, but I'm lazy
+     */
+    public function __construct() {
+        // Values are read in from the config.inc.php file
+        $this->connection = mysql_connect($GLOBALS["sql_server"],
+            $GLOBALS["sql_username"], $GLOBALS["sql_password"])
+            or die('Could not connect: '.mysql_error());
+        $select = mysql_select_db($GLOBALS["db_name"], $this->connection)
+            or die('Could not access database '.$GLOBALS["db_name"].': '.mysql_error());
+        $this->eventstable = mysql_real_escape_string($GLOBALS["table_events"]);
+        $this->registrationstable = mysql_real_escape_string($GLOBALS["table_registrations"]);
+        $this->studentdatatable = mysql_real_escape_string($GLOBALS["table_studentdata"]);
+    }
 
-        //if the reuslt string is empty, if there is at least 1 event available, if the first event has slot availabe
-        if(strcmp($result, "") == 0 && count(self::$events) >= 1 && self::$events[$i] > 0)
-        { $result = $result.$i; $i++; }
-        
-        
-        for(; $i <= count(self::$events); $i++)
-        {
-            if(self::$events[$i] > 0)
-            { $result = $result."|".$i; }
+    // Student-facing functions
+    // For use on the student-facing site
+
+    /**
+     * Get all the current events which aren't already full
+     * Would be used when showing a student which slots he can sign up for
+     * @return a 3D array of timeslot -> 
+     *                       array of available events for the timeslot ->
+     *                       associative array of database data for each event plus
+     *                       the number of people signed up for it
+     *         or false on error
+     */
+    public function getValidEvents() {
+        $outArray = array();
+        for($i = 1; $i <= 4; $i++) {
+            $result = $this->getValidEventsByTimeslot($i);
+            if(!$result) {
+                return false;
+            }
+            $outArray[$i] = $result;
         }
-        
-		return $result;
-	}
-	
-	//return long events in a string
-	public function getLongEvents()
-	{
-		$event_query = "SELECT * FROM  `testschema` WHERE length=100";
-		$event_table = mysql_query($event_query);
-		$result = "";
-		if(!$event_table)
-		{
-            header("Location: login.php?error=2");
-		}
-		else
-		{
-			while($row = mysql_fetch_assoc($event_table))
-			{
-				if(strlen($result) < 1)
-					$result = $row['id'];
-				else
-					$result = $result."|".$row['id'];
-			}
-			return $result;
-		}
-		//must use mysql_fetch_assoc to cycle through on other side	
-	}
-	
-	//returns long events from a certain time slot as a string
-    //compares events in timeslot to all long events
-	public function getLongFromTimeSlot($slot)
-	{
-		$timeSlot = getFromTimeSlot($slot);
-		$long = getLongEvents();
-		$count = 0;
-		$result = "";
-		$timeElements = explode("|", $timeSlot);
-		$longElements = explode("|", $long);
-		for($i = 0; $i < count($timeElements); $i++)
-		{
-			for($j = 0; $j < count($longElements); $j++)
-			{
-				if($timeElements[$i] === $longElements[$j])
-				{
-					if(strlen($result) < 1)
-						$result = $timeElements[$i];
-					else
-						$result = $result."|".$timeElements[$i];
-				}
-			}
-		}
-		return $result;
-	}
-	
-    //get events from time slot	
-	public function getFromTimeSlot($slot)
-	{
-		$event_query = "SELECT * FROM  `testschema` WHERE timeslot=".$slot;
-		$event_table = mysql_query($event_query);
-		$result = "";
-		if(!$event_table)
-		{
-            header("Location: login.php?error=2");
-		}
-		else
-		{
-			while($row = mysql_fetch_assoc($event_table))
-			{
-				if(strlen($result) < 1)
-					$result = $row['id'];
-				else
-					$result = $result."|".$row['id'];
-			}
-			return $result;
-		}
-		//must use mysql_fetch_assoc to cycle through on other side	
-	}
+        return $outArray;
+    }
 
-    public function getTitlesFromTimeSlot($slot)
-    {
-        $sql = "SELECT * from `testschema`";
-        if(!($result = mysql_query($sql)))
-            header("Location: login.php?error=2");
+    /**
+     * Get all the current events for a timeslot which aren't already full
+     * Would be used when asking a student to change a single timeslot registration
+     * @return a 2D array of available events for the timeslot ->
+     *                       associative array of database data for each event plus
+     *                       the number of people signed up for it
+     *         or false on error
+     */
+    public function getValidEventsByTimeslot($timeslot) {
+        $timeslot = mysql_escape_string($timeslot);
+        $events = $this->eventstable;
+        $query = "SELECT *, ".
+            "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event2=$events.id OR event2=$events.id OR event3=events.id OR event4=events.id) as count ".
+            "FROM $events WHERE timeslot=$timeslot AND (SELECT COUNT(*) FROM ".$this->registrationstable.
+            " WHERE event2=$events.id OR event2=$events.id OR event3=events.id OR event4=events.id)<capacity";
+        return $this->query2D($query);
+    }
 
-        $res = "";
-        while($row = mysql_fetch_array($result)){
-            $idsFromDB = $row['timeslot'];
-            $ids = explode(",", $idsFromDB);
-            for($i = 0; $i < sizeof($ids); $i++)
-            {
-                if($ids[$i] == $slot && !empty($res))
-                    $res = $res."|".$row['title'];
-                else if ($ids[$i] == $slot)
-                    $res = $res.$row['title'];
-
+    /**
+     * Get the events a student has registered for
+     * Would be called once the student has logged in to check whether he is checking his
+     * registrations or registering for his events
+     * @param idnum the id number of the student
+     * @return 2D array of timeslot -> associative array of data for the event
+     *         if the user has registered, or false if he hasn't
+     */
+    public function getStudentRegistrations($idnum) {
+        $idnum = mysql_escape_string($idnum);
+        $outArray = array();
+        for($i = 1; $i <= 4; $i++) {
+            $query = "SELECT * FROM ".$this->eventstable." WHERE id IN ".
+                "(SELECT event$i FROM ".$this->registrationstable." WHERE id=$idnum)";
+            $result = mysql_query($query);
+            if(!$result) {
+                return false;
+            }
+            if(mysql_num_rows($result)) {
+                $outArray[$i] = mysql_fetch_assoc($result);
             }
         }
-
-        return $res;
-        
+        if(count($outArray) == 0) {
+            return false;
+        }
+        return $outArray;
     }
-	
-    //add one to the slotsAvailable in the system
-	public function free($eventNum)
-	{
-		self::$events[$eventNum]++;
-	}
-	
-    //remove one from the slotsAvailable in the system
-	public function reserve($eventNum)
-	{
-		self::$events[$eventNum]--;
-	}
-	
-	//not really random
-	//gives the lazies the least popular event
-	private function selectRandom($slot)
-	{
-		$best_event = 1;
-		$best_ratio = 0;
-		$eventsQuery = "SELECT * FROM `testschema`";
-		$all_events = mysql_query($eventsQuery);
-		$rowID = 1;
-		while ($row = mysql_fetch_assoc($all_events)) {
-			if($row["slotsAvailable"] > 0 && $row["length"] == 50)
-			{
-				$ratio = self::$events[$rowID]/$row["capacity"];
-				if($ratio > $best_ratio)
-				{
-					$best_ratio = $ratio;
-					$best_event = $rowID;
-				}
-			}
-			$rowID++;
-		}
-		return $best_event;
-	}
-	
-    //the users events have now been logged in the database, now the users events have to be freed from the table
-    //the system count doesn't have to be changed because those slots haven't been freed so they should stay decremented.
-    //each user will have an instance of the system it is a part of so it can handle freeing and reserving its current events
-	public function register($user)
-	{
-		$userEvents = $user->GetEvents();
-		for($j = 0; $j < 4; $j++)
-		{
-            //random
-			if($userEvents[$j] === 0 || !isset($userEvents[$j]))
-			{
-				$userEvents[$j] = self::selectRandom($j);
-			}
-            
-            //evemt full
-			if($userEvents[$j] != -1 && self::$events[$userEvents[$j]] < 1)
-			{
-                $sql = "SELECT * from `testschema` WHERE id=".$userEvents[$j];
-                if(!($result = mysql_query($sql)))
-                   // header("Location: login.php?error=2");
-                while($row = mysql_fetch_array($result));
-                    $evname = $row['name'];
-				header("Location: registration.php?error=3&event=".$evname);
-			}
 
-            //if the event id = -1 then that was disabled for a long event in the timeslot before
-            if($userEvents[$j] != -1)
-            {
-                //Update available slots
-                $i = $userEvents[$j];
-                $countQuery="SELECT * FROM `testschema` WHERE id='".$i."'";
-                $result = mysql_query($countQuery);
-                $temp = mysql_fetch_assoc($result);
-                $slots = $temp["slotsAvailable"] - 1;
-                $eventCount[$j] = $slots;
-                $updateQuery = "UPDATE `testschema` SET slotsAvailable=".$eventCount[$j]." WHERE id=".$i;
-                $check = mysql_query($updateQuery);
-                if(!$check)
-                    header("Location: login.php?error=2");
-                //Update attendees
-                $current = "SELECT * FROM `testschema` WHERE id=".$i;
-                if(!($currentTable = mysql_query($current)))
-                   header("Location: login.php?error=2");
-                $currentRow = mysql_fetch_assoc($currentTable);
-                if(strlen($currentRow['attendees']) > 1)
-                    $names = $currentRow['attendees']."|".$user->GetID();
-                else
-                    $names = $user->GetID();
-                $nameAdd = "UPDATE `testschema` SET attendees='".$names."' WHERE id=".$i;
-                if(!(mysql_query($nameAdd)))
-                    header("Location: login.php?error=2");
+    /**
+     * Registers a student and his 4 events
+     * Used after the student has confirmed his events
+     * Pass in a value of 0 for one of the eid's if a student
+     * doesn't have a course then (due to a preceeding double course)
+     *
+     * @param idnum the student's id number
+     * @param eid1 the id of event #1
+     * @param eid2 the id of event #2
+     * @param eid3 the id of event #3
+     * @param eid4 the id of event #4
+     * @return boolean representing the success of the query
+     */
+    public function registerStudent($idnum, $eid1, $eid2, $eid3, $eid4) {
+        $idnum = mysql_escape_string($idnum);
+
+        if(!$eid1) {
+            $eid1 = 'NULL';
+        } else {
+            $eid1 = mysql_escape_string($eid1);
+        }
+
+        if(!$eid2) {
+            $eid2 = 'NULL';
+        } else {
+            $eid2 = mysql_escape_string($eid2);
+        }
+
+        if(!$eid3) {
+            $eid4 = 'NULL';
+        } else {
+            $eid3 = mysql_escape_string($eid3);
+        }
+
+        if(!$eid4) {
+            $eid4 = 'NULL';
+        } else {
+            $eid4 = mysql_escape_string($eid4);
+        }
+
+        $query = "INSERT INTO ".$this->registrationstable.
+            " (id, event1, event2, event3, event4, timestamp) ".
+            "VALUES ($idnum, $eid1, $eid2, $eid3, $eid4, NOW())";
+        return mysql_query($query);
+    }
+
+    // Admin-facing functions
+    // For use on the admin-facing site
+
+    /**
+     * Get all the current events
+     * Would be used on the admin/checker page to list all events
+     * @return a 3D array of timeslot -> 
+     *                       array of available events for the timeslot ->
+     *                       associative array of database data for each event plus
+     *                       the number of people signed up for it
+     */
+    public function getAllEvents() {
+        $outArray = array();
+        for($i = 1; $i <= 4; $i++) {
+            $result = $this->getAllEventsByTimeslot($i);
+            if(!$result) {
+                return false;
             }
-		}
-        //put user into people database
-		$person_check = "SELECT * FROM people WHERE studentID=".$user->GetID();
-		$userUpdate = "";
-		$name_get = "SELECT * FROM studentdata WHERE BCPStudID=".$user->GetID();
-		if(!($nameList = mysql_query($name_get)))
-            header("Location: login.php?error=2");
-		$username = mysql_fetch_assoc($nameList);
-		$userUpdate = "INSERT INTO people VALUES (".$user->GetID().",'".$username["StudLastFirst"]."', ".$userEvents[0].", ".$userEvents[1].",".$userEvents[2].",".$userEvents[3].")";
-		if(!(mysql_query($userUpdate)))
-            header("Location: login.php?error=2");
-
-        return true;
-	}
-	
-	//when called returns all the users attending a certain event in the form lastname, first
-	public function displayByEvent($event)
-	{
-		$participantQuery = "SELECT * FROM `testschema` WHERE id=".$event;
-		$participantList = mysql_query($participantQuery);
-		$participantArray = mysql_fetch_assoc($participantList);
-		$participants = $participantArray["attendees"];
-		$participants_exploded = explode("|", $participants);
-		$attendees = "";
-		for($i = 0; $i < count($participants_exploded); $i++)
-		{
-			$id_query = "SELECT * FROM studentdata WHERE BCPStudID=".$participants_exploded[$i];
-			$id_one = mysql_query($id_query);
-			if(!$id_one)
-                ;
-			else
-				$id_two = mysql_fetch_assoc($id_one);
-			$name = $id_two["StudLastFirst"];
-			if(strlen($attendees) < 1)
-				$attendees = $name;
-			else
-				$attendees = $attendees."|".$name;
-		}
-		return $attendees;//names seperated by |
-	}
-	
-	//returns all the events a certain user is going to based upon id
-	//could be used for friends/teachers/mailing lists
-	public function displayByID($id)
-	{
-		$eventQuery = "SELECT * FROM people WHERE studentID=".$id;
-        $event_list = mysql_query($eventQuery);
-		if(!($event_list))
-            return FALSE;
-		$event_array = mysql_fetch_assoc($event_list);
-		$eventString = $event_array['event1']."|".$event_array['event2']."|".$event_array['event3']."|".$event_array['event4'];
-		return $eventString;
-	}
-	
-	//similar to above, returns based on name. Has to exactly match the database
-	public function displayByFullName($name)
-	{
-		$nameList = explode(" ", $name);
-		//echo("0: ".$nameList[0]." 1: ".$nameList[1]);
-		$name_query = "SELECT * FROM studentdata WHERE StudFirstName='".$nameList[0]."', StudLastName='".$nameList[1]."'";
-		$name_rows = mysql_query($name_query);
-		if(!$name_rows)
-			header("Location: login.php?error=2");
-		$result = "";
-		while ($row = mysql_fetch_assoc($name_rows)) {
-			$temp = displayByID($row["BCPStudID"]);
-			if(strlen($result) < 1)
-				$result = $temp;
-			else
-				$result = $result.", ".$temp; 
-		}
-		return $result;
-	}
-	
-	//gets the emails of everyone attending an event
-	//could be put in some sort of admin page or something so all the emails of people attending an event can be gotten
-	public function eventEmails($id)
-	{
-		$participantQuery = "SELECT * FROM `testschema` WHERE id=".$event;
-		$participantList = mysql_query($participantQuery);
-		if(!$participantList)
-		{}
-		else
-			$participantArray = mysql_fetch_assoc($participantList);
-		$participants = $participantArray["attendees"];
-		$participants_exploded = explode(",", $participants);
-		$attendees;
-		for($i = 0; $i < count($participants_exploded); $i++)
-		{
-			$id_query = "SELECT * FROM studentdata WHERE BCPStudID=".$participants_exploded[$i];
-			$id_one = mysql_query($id_query);
-			$id_two = mysql_fetch_assoc($id_one);
-			$name = $id_two["StudentEmail"];
-			$attendees[$i] = $name."|";
-		}
-		return $attendees;//names seperated by |
-	}
-
-
-
-    //only reserves slot from system
-    public function selectFromSystem($id)
-    {
-        if($id>0)
-            {
-                system::reserve($id);
-                echo "reserved.";
-            }
+            $outArray[$i] = $result;
+        }
+        return $outArray;
     }
 
-    public function addUser($user, $id)
-    {
-        if($users == null)
-            $users[$id] = $user;
-        else if(!in_array($user, $users))
-            $users[$id] = $user;
+    /**
+     * Get all the current events for a timeslot which aren't already full
+     * Would be used when asking a student to change a single timeslot registration
+     * @return a 2D array of available events for the timeslot ->
+     *                       associative array of database data for each event plus
+     *                       the number of people signed up for it
+     */
+    public function getAllEventsByTimeslot($timeslot) {
+        $timeslot = mysql_escape_string($timeslot);
+        $events = $this->eventstable;
+        $query = "SELECT *, ".
+            "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=events.id OR event4=events.id) ".
+            "as count FROM $events WHERE timeslot=$timeslot";
+        return $this->query2D($query);
     }
 
-    public function getUserId($user)
-    {
-
+    /**
+     * Gets a list of the users registered for a given event
+     * Used in the summary page for each event
+     * @param eid the event id
+     * @return a 2D array of index -> data on registered student
+     */
+    public function getRegisteredStudents($eid) {
+        $eid = mysql_escape_string($eid);
+        $query = "SELECT * FROM ".$this->registrationstable." WHERE ".
+            "event1=$eid OR event2=$eid OR event3=$eid OR event4=$eid";
+        return $this->query2D($query);
     }
 
-    public function getUser($id)
-    {
-        return $user[$id];
+
+    // Private helper functions
+
+    /**
+      * Performs the query and returns data in a 2D array
+      * @param query the query
+      * @return 2D array of rows, each of which contains an associative array or false if unsuccessful
+      */
+    private function query2D($query) {
+        $result=mysql_query($query,$this->connection);
+        if(!$result)
+            return false;
+        $outArray=array();
+        while($row=mysql_fetch_assoc($result)) {
+            $outArray[]=$row;
+        }
+        return $outArray;
     }
 
 }
-
-//Class for user created dynamically as multiple people sign in
-//References same system object
-class User
-{
-
-	private $myEvents;
-	private $studentID = 0;
-
-    //Checks registration
-	public function __construct($username)
-	{
-        
-		$email = $username;
-		if(strcmp(substr($email, -8), "@bcp.org") != 0)
-		{
-			$email = $email."@bcp.org";
-		}
-		$idQuery = "SELECT * FROM studentdata WHERE StudentEmail='".$email."'";
-		$idList = mysql_query($idQuery);
-		if(!$idList)
-			header("Location: login.php?error=2");
-		$idArray = mysql_fetch_assoc($idList);
-
-        //check to see if they registered already
-		$this->studentID = $idArray["BCPStudID"];
-		$check_registration = "SELECT * FROM people WHERE studentID='".$this->studentID."'";
-		$result = mysql_query($check_registration);
-		if(!$result)
-		{}
-		else
-			while($row = mysql_fetch_assoc($result))
-			{
-				if($this->studentID === $row['studentID'])
-                    header("Location: login.php?error=1");
-			}
-	}
-	
-    //Selects event from system
-	public function select($id, $timeSlot)
-	{
-        $this->deselect($this->myEvents[$timeSlot], $timeSlot);
-		$this->myEvents[$timeSlot] = $id;
-        if($id > 0)
-            system::reserve($id);
-        else
-            header("Location: login.php?error=3");
-	}
-
-	
-    //deselects event from system
-	private function deselect($id, $timeSlot)
-	{
-		$this->myEvents[$timeSlot] = 0;//0 will select randomly
-		system::free($id);
-	}
-	
-    //Gets studentID of user
-	public function GetID()
-	{
-		return $this->studentID;
-	}
-	
-    //Gets events of user
-	public function GetEvents()
-	{
-		return $this->myEvents;
-	}
-	
-}
-
-?>
