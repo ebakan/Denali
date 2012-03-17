@@ -23,16 +23,19 @@ $data = $system->getValidEvents();
 <html>
 <head> <title> TEST </title>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 
 var data = $.parseJSON(<?php print json_encode(json_encode($data)); ?>);
+console.log(data);
 
+/*
 for(var x in data[0][1].title)
 {
     alert(x);
 }
+ */
 
 </script>
 </head>
