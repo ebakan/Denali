@@ -124,17 +124,6 @@ else if(isset($_POST['Submit']))
     </style>
     <script type="text/javascript">
 
-        /*var firstTimeSlotEvs = {<?php 
-                                $sql = "SELECT * from `testschema` WHERE timeSlot= 1";
-                                if(!($result = mysql_query($sql)))
-                                    header("Location: login.php?error=2");
-
-                                while($row = mysql_fetch_array($result)){
-                                        echo "'".$row['description']."' : '".$row['title']."', ";
-                                }
-
-                        ?>};
-*/
 var firstTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSlot('1'));
                                for($i = 0; $i < sizeof($evs); $i++) 
                                 if($i == sizeof($evs)-1)
@@ -178,40 +167,6 @@ var fourthTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSl
     </script>
 
 <script language="javascript" type="text/javascript">
-/*function ajaxFunction(event){
-    var ajaxRequest;  // The variable that makes Ajax possible!
-
-    try{
-        // Opera 8.0+, Firefox, Safari
-        ajaxRequest = new XMLHttpRequest();
-        } catch (e){
-            // Internet Explorer Browsers
-            try{
-            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-            } catch (e) {
-                try{
-                    ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-                    } catch (e){
-                        // Something went wrong
-                        alert("Your browser broke!");
-                        return false;
-                    }
-            }
-        }
-    
-    //AJAX TESTING
-    // Create a function that will receive data sent from the server
-       ajaxRequest.onreadystatechange = function(){
-            if(ajaxRequest.readyState == 4){
-                $('#ev').val(ajaxRequest.responseText);
-            }
-        }
-        
-        ajaxRequest.open("GET", "selectEvs.php" + "?" + "event=" + event + "&id=" + <?php echo $_SESSION['id'] ?>, true);
-        ajaxRequest.send(null); 
-}
-
-*/
 </script>
 </head>
 
@@ -318,54 +273,7 @@ var fourthTimeSlotEvs = { <?php $evs = explode("|", $system->getTitlesFromTimeSl
 
             ?>
         };
-       /* var data = [
-
-            [ <?php
-                /*
-                $events = explode("|", $system->getvalidevents());
-
-                for($i = 0; $i < sizeof($events); i++)
-                {
-                    $limit = sizeof($events) -1;
-                    $sql = "SELECT * from events WHERE id='".$events[$i]."'";
-                    if(!($result = mysql_query($sql)))
-                        header("Location: login.php?error=2");
-                    while($row = mysql_fetch_array($result))
-                    {
-                        if($i === $limit)
-                            echo "'".$row['description']."' : '".$row['name']."' ";
-                        else
-                            echo "'".$row['description']."' : '".$row['name']."', ";
-                    }
-
-
-                }
-*/
-                ?>
-            ]
-        ];
-*/
-/*
-var firstTimeSlotEvs = [<?php $EvsData = $system->getvalidevents();
-                        $EvsIds = explode("|", $EvsData);
-                        $Evs = array();
-                        $sql = "SELECT * from events WHERE timeSlot= 1";
-                        if(!($result = mysql_query($sql)))
-                            header("Location: login.php?error=2");
-
-                        $x = 0;
-                        while($row = mysql_fetch_array($result)){
-                            $Evs[$x] = $row['name'];
-                            $x++;
-                        }
-
-                        for($i=0;$i<sizeof($Evs);$i++) 
-                            if($i == sizeof($Evs)-1)
-                                print "'".$Evs[$i]."'";
-                            else
-                                print "'".$Evs[$i]."', ";
-                ?>];
-
+        /*
         //Fills mySelect with options
         $.each(firstTimeSlotEvs, function(val, text) {
             if($('#stepDesc0').hasClass('current')){
