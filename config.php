@@ -116,9 +116,9 @@ class system
         $events = $this->eventstable;
         $query = "SELECT *, ".
             "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
-            "event2=$events.id OR event2=$events.id OR event3=events.id OR event4=events.id) as count ".
+            "event2=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id) as count ".
             "FROM $events WHERE timeslot=$timeslot AND (SELECT COUNT(*) FROM ".$this->registrationstable.
-            " WHERE event2=$events.id OR event2=$events.id OR event3=events.id OR event4=events.id)<capacity";
+            " WHERE event2=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity";
         return $this->query2D($query);
     }
 
