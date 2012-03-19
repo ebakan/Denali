@@ -82,34 +82,34 @@
 
                 //Fills mySelect with options
             if($('#stepDesc0').hasClass('current')){
-                $.each(firstTimeSlotEvs, function(val, text) {
+                $.each(firstTimeSlotTitles, function(val, text) {
                 
                     $('#mySelect').append(
-                        $('<option></option>').val(val).html(text)
+                        $('<option class="click1"></option>').attr("id", val).text(text)
                     );
                     
                 });
             } else if($('#stepDesc1').hasClass('current')){
-                $.each(secondTimeSlotEvs, function(val, text) {
+                $.each(secondTimeSlotTitles, function(val, text) {
                 
                     $('#mySelect').append(
-                        $('<option></option>').val(val).html(text)
+                        $('<option class="click2"></option>').attr("id", val).text(text)
                     );
                     
                 });
             } else if($('#stepDesc2').hasClass('current')){
-                $.each(thirdTimeSlotEvs, function(val, text) {
+                $.each(thirdTimeSlotTitles, function(val, text) {
                 
                     $('#mySelect').append(
-                        $('<option></option>').val(val).html(text)
+                        $('<option class="click3"></option>').attr("id", val).text(text)
                     );
                     
                 });
             } else if($('#stepDesc3').hasClass('current')){
-                $.each(fourthTimeSlotEvs, function(val, text) {
+                $.each(fourthTimeSlotTitles, function(val, text) {
                 
                     $('#mySelect').append(
-                        $('<option></option>').val(val).html(text)
+                        $('<option class="click4"></option>').attr("id", val).text(text)
                     );
                     
                 });

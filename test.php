@@ -28,14 +28,31 @@ $data = $system->getValidEvents();
 <script type="text/javascript">
 
 var data = $.parseJSON(<?php print json_encode(json_encode($data)); ?>);
-console.log(data);
 
-/*
-for(var x in data[0][1].title)
-{
-    alert(x);
+//document.writeln(data[1][0].title);
+
+function count(obj) {
+  var c = 0;
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) ++c;
+  }
+  return c;
 }
- */
+
+var titles = new Array();
+document.writeln(count(data));
+document.writeln(count(data[1]));
+
+var i = 0;
+for(var x = 1; x <= count(data); x++)
+    {
+        for(var y = 0; y < count(data[x]); y++)
+            {
+               titles[i] = data[x][y].title; i++; 
+            } 
+
+    }
+//console.log(data);
 
 </script>
 </head>

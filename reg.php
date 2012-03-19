@@ -13,16 +13,16 @@ else
   //  header("Location: login.php");
 
 
-$system = new system;;
+$system = new system();
+$data = $system->getValidEvents();
 session_start();
 $name = $_SESSION['uname'];
-$user = new User($name);
-$_SESSION['id'] = $user->GetID();
+$id = $_SESSION['uid'];
 
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";
 
-if (getStudentRegistrations($_SESSION['id']))
+if ($system->getStudentRegistrations($id))
     ;//reroute to confirmation page
 
 
@@ -72,15 +72,15 @@ else if(isset($_POST['Submit']))
         .sub { clear:left; }
 
     </style>
-    <script type="text/javascript">
 
-    </script>
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="formToWizard.js"></script>
 
-<script language="javascript" type="text/javascript">
-</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
+        });
+    </script>
 </head>
 
 <body>
@@ -95,39 +95,55 @@ else if(isset($_POST['Submit']))
         <form id="SignupForm" action="">
             <fieldset>
                 <legend>FRAME 1</legend>
-                <label for="Name">Name</label>
-                <input id="Name" type="text" />
-                <label for="Email">Email</label>
-                <input id="Email" type="text" />
-                <label for="Password">Password</label>
-                <input id="Password" type="password" />
+                <div id="id1"></div>
+                <div id="title1"></div>
+                <div id="speaker1"></div>
+                <div id="description1"></div>
+                <div id="timeslot1"></div>
+                <div id="length1"></div>
+                <div id="location1"></div>
+                <div id="capacity1"></div>
+                <div id="email1"></div>
+                <div id="count1"></div>
             </fieldset>
             <fieldset>
                 <legend>FRAME 2</legend>
-                <label for="CompanyName">Company Name</label>
-                <input id="CompanyName" type="text" />
-                <label for="Website">Website</label>
-                <input id="Website" type="text" />
-                <label for="CompanyEmail">CompanyEmail</label>
-                <input id="CompanyEmail" type="text" />
+                <div id="id2"></div>
+                <div id="title2"></div>
+                <div id="speaker2"></div>
+                <div id="description2"></div>
+                <div id="timeslot2"></div>
+                <div id="length2"></div>
+                <div id="location2"></div>
+                <div id="capacity2"></div>
+                <div id="email2"></div>
+                <div id="count2"></div>
             </fieldset>
             <fieldset>
                 <legend>FRAME 3</legend>
-                <label for="CompanyName">Company Name</label>
-                <input id="CompanyName" type="text" />
-                <label for="Website">Website</label>
-                <input id="Website" type="text" />
-                <label for="CompanyEmail">CompanyEmail</label>
-                <input id="CompanyEmail" type="text" />
+                <div id="id3"></div>
+                <div id="title3"></div>
+                <div id="speaker3"></div>
+                <div id="description3"></div>
+                <div id="timeslot3"></div>
+                <div id="length3"></div>
+                <div id="location3"></div>
+                <div id="capacity3"></div>
+                <div id="email3"></div>
+                <div id="count3"></div>
             </fieldset>
             <fieldset>
                 <legend>FRAME 4</legend>
-                <label for="CompanyName">Company Name</label>
-                <input id="CompanyName" type="text" />
-                <label for="Website">Website</label>
-                <input id="Website" type="text" />
-                <label for="CompanyEmail">CompanyEmail</label>
-                <input id="CompanyEmail" type="text" />
+                <div id="id4"></div>
+                <div id="title4"></div>
+                <div id="speaker4"></div>
+                <div id="description4"></div>
+                <div id="timeslot4"></div>
+                <div id="length4"></div>
+                <div id="location4"></div>
+                <div id="capacity4"></div>
+                <div id="email4"></div>
+                <div id="count4"></div>
             </fieldset>
             <p>
                 <input id="SaveAccount" type="button" value="Submit form" />
@@ -147,31 +163,143 @@ else if(isset($_POST['Submit']))
         Fills in mySelect with events and displays event
         info on hover.
     -->
+    <script type="text/javascript">
+    var data = $.parseJSON(<?php print json_encode(json_encode($data)); ?>);
+
+ //   document.writeln(data[1][0].title);
+
+    function count(obj) {
+      var c = 0;
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) ++c;
+      }
+      return c;
+    }
+
+    function getTitles(timeslot)
+    {   
+        var titles = new Object;
+        for(var x = 0; x < count(data[timeslot]); x++)
+        {
+            var key = data[timeslot][x].id
+            titles[key] = data[timeslot][x].title;
+        }
+
+        return titles;
+    }
+
+    var titles = new Object();
+    var ids = new Object();
+    var speakers = new Object();
+    var descriptions = new Object();
+    var timeslots = new Object();
+    var lengths = new Object();
+    var locations = new Object();
+    var capacities = new Object();
+    var emails = new Object();
+    var counts = new Object();
+    
+    //fill data
+    var i = 0;
+    for(var x = 1; x <= count(data); x++)
+        {
+            for(var y = 0; y < count(data[x]); y++)
+                {
+                   key = data[x][y].id;
+                   titles[key] = data[x][y].title;  
+                   ids[key] = data[x][y].id;  
+                   speakers[key] = data[x][y].speaker;  
+                   descriptions[key] = data[x][y].description;  
+                   timeslots[key] = data[x][y].timeslot;  
+                   lengths[key] = data[x][y].length;  
+                   locations[key] = data[x][y].location;  
+                   titles[capacities] = data[x][y].capacity;  
+                   emails[key] = data[x][y].email;  
+                   counts[key] = data[x][y].count;  
+                    
+                } 
+
+        }
+    
+    var firstTimeSlotTitles = getTitles(1);
+    var secondTimeSlotTitles = getTitles(2);
+    var thirdTimeSlotTitles = getTitles(3);
+    var fourthTimeSlotTitles = getTitles(4);
+    //for(var x = 0; x < firstTimeSlotTitles.length; x++) document.writeln(firstTimeSlotTitles[x]);
+
+    </script>
+
     <script type="text/javascript">                                         
-        //Fills mySelect with options
-        $.each(firstTimeSlotEvs, function(val, text) {
-            if($('#stepDesc0').hasClass('current')){
+       /* $.each(titles, function(key, value) {
             $('#mySelect').append(
-                $('<option></option>').val(val).html(text)
+                $('<option></option>').text(value)
             );
-            } else { document.write('TEST'); }
         });
 */
-        //Displays value of each event (description) when the option
-        //is selected
 
         $("#mySelect").change(function () {
             var str = "";
             $("select#mySelect option:selected").each(function () {
-                str += $(this).val(); /* + " " + $(this).attr('id');*/
+                str += $(this).attr("id"); /* + " " + $(this).attr('id');*/
+                fillData($(this).attr("id"));
                 //sayHi();
             });
             $("#message_display").text(str);
         })
         .trigger('change');
 
-        //function sayHi() { alert("hi"); }
-                    
+        function fillData(id) { 
+           
+            if($('#stepDesc0').hasClass('current')){
+               $("#id1").html(ids[id]);
+               $("#title1").html(titles[id]);
+               $("#speaker1").html(speakers[id]);
+               $("#description1").html(descriptions[id]);
+               $("#timeslot1").html(timeslots[id]);
+               $("#length1").html(lengths[id]);
+               $("#location1").html(locations[id]);
+               $("#capacity1").html(capacities[id]);
+               $("#email1").html(emails[id]);
+               $("#count1").html(counts[id]);
+                 
+            } else if($('#stepDesc1').hasClass('current')){
+               $("#id2").html(ids[id]);
+               $("#title2").html(titles[id]);
+               $("#speaker2").html(speakers[id]);
+               $("#description2").html(descriptions[id]);
+               $("#timeslot2").html(timeslots[id]);
+               $("#length2").html(lengths[id]);
+               $("#location2").html(locations[id]);
+               $("#capacity2").html(capacities[id]);
+               $("#email2").html(emails[id]);
+               $("#count2").html(counts[id]);
+            } else if($('#stepDesc2').hasClass('current')){
+               $("#id3").html(ids[id]);
+               $("#title3").html(titles[id]);
+               $("#speaker3").html(speakers[id]);
+               $("#description3").html(descriptions[id]);
+               $("#timeslot3").html(timeslots[id]);
+               $("#length3").html(lengths[id]);
+               $("#location3").html(locations[id]);
+               $("#capacity3").html(capacities[id]);
+               $("#email3").html(emails[id]);
+               $("#count3").html(counts[id]);
+            } else if($('#stepDesc3').hasClass('current')){
+               $("#id4").html(ids[id]);
+               $("#title4").html(titles[id]);
+               $("#speaker4").html(speakers[id]);
+               $("#description4").html(descriptions[id]);
+               $("#timeslot4").html(timeslots[id]);
+               $("#length4").html(lengths[id]);
+               $("#location4").html(locations[id]);
+               $("#capacity4").html(capacities[id]);
+               $("#email4").html(emails[id]);
+               $("#count4").html(counts[id]);
+            }
+        }
+
+
+
     </script>
 
 
