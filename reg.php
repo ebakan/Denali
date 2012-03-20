@@ -31,7 +31,7 @@ if ($system->getStudentRegistrations($id))
 //AFTER SUBMISSION
 else if(isset($_POST['Submit']))
     {
-
+        //$eid1 = 
 
     }
 
@@ -92,7 +92,7 @@ else if(isset($_POST['Submit']))
             <img src="http://www.adobe.com/showcase/casestudies/bellarmine/cover.jpg" alt="Bellarmine Immigration Summit" />
             <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
         </div>
-        <form id="SignupForm" action="">
+        <form name="myform" id="SignupForm" action="">
             <fieldset>
                 <legend>FRAME 1</legend>
                 <div id="id1"></div>
@@ -145,8 +145,12 @@ else if(isset($_POST['Submit']))
                 <div id="email4"></div>
                 <div id="count4"></div>
             </fieldset>
+            <input type="hidden" name="eid1" />
+            <input type="hidden" name="eid2" />
+            <input type="hidden" name="eid3" />
+            <input type="hidden" name="eid4" />
             <p>
-                <input id="SaveAccount" type="button" value="Submit form" />
+                <input name="Submit" id="SaveAccount" type="button" value="Submit form" />
             </p>
         </form>
 
@@ -156,7 +160,7 @@ else if(isset($_POST['Submit']))
 
 </div>
 
-    <select id="mySelect" multiple="multiple"></select>
+    <select id="mySelect" size="15"></select>
     <div id="spacer"></div>
 
     <!--
@@ -297,7 +301,7 @@ else if(isset($_POST['Submit']))
                $("#count4").html(counts[id]);
             }
         }
-
+        
 
 
     </script>

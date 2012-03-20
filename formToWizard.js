@@ -1,4 +1,3 @@
-/* Created by jankoatwarpspeed.com */
 
 (function($) {
     $.fn.formToWizard = function(options) {
@@ -13,20 +12,20 @@
         var submmitButtonName = "#" + options.submitButton;
         $(submmitButtonName).hide();
 
-        // 2
         $(element).before("<ul id='steps'></ul>");
 
         steps.each(function(i) {
             $(this).wrap("<div id='step" + i + "'></div>");
             $(this).append("<p id='step" + i + "commands'></p>");
 
-            // 2
             var name = $(this).find("legend").html();
             $("#steps").append("<li id='stepDesc" + i + "'>Step " + (i + 1) + "<span>" + name + "</span></li>");
 
             if (i == 0) {
                 createNextButton(i);
                 selectStep(i);
+
+                $(".next").hide();
             }
             else if (i == count - 1) {
                 $("#step" + i).hide();
@@ -75,6 +74,51 @@
             $("#stepDesc" + i).addClass("current");
             fillevents();
         }
+        
+        
+        $("#mySelect").click(function() {
+            $(".next").show();
+            
+            if($('#stepDesc3').hasClass('current')){
+                $(submmitButtonName).show();
+            }
+        });
+
+        $(".next, .prev").click(function() {
+            switch($(".current").attr("id")) {
+              case "stepDesc0":
+                if($("#title1").text().length > 0)
+                    $(".next").show();
+                else
+                    $(".next").hide();
+              break;
+              case "stepDesc1":
+                if($("#title2").text().length > 0)
+                    $(".next").show();
+                else
+                    $(".next").hide();
+              break;
+              case "stepDesc2":
+                if($("#title3").text().length > 0)
+                    $(".next").show();
+                else
+                    $(".next").hide();
+              break;
+              case "stepDesc3":
+                if($("#title4").text().length > 0)
+                    $(".next").show();
+                else
+                    $(".next").hide();
+
+    
+            if($("#title4").text().length <= 0)
+                $(submmitButtonName).hide();
+
+              break;
+              default:
+              break;
+            }
+        });
 
         function fillevents()
         {
@@ -121,7 +165,17 @@
         {
             $('#mySelect').find('option').remove();
         }
+    
+        $("#SaveAccount").click(function() {
+           document.myform.eid1.value = $('#id1').text(); 
+           document.myform.eid2.value = $('#id2').text(); 
+           document.myform.eid3.value = $('#id3').text(); 
+           document.myform.eid4.value = $('#id4').text(); 
+        
+        });
 
 
     }
 })(jQuery); 
+
+
