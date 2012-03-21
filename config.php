@@ -249,6 +249,25 @@ class system
         return $this->query2D($query);
     }
 
+    /**
+     * Checks if an event id is valid (exists and is not full)
+     * Used when validating a student's event request
+     * @param eid the event id
+     * @return boolean representing the validity of the eid
+     */
+    public function isEventValid($eid) {
+        $eid = mysql_escape_string($eid);
+        if(strlen($eid)<1) {
+            return true;
+        }
+        $events = $this->eventstable;
+        $query = "SELECT * FROM $events WHERE id=$eid AND (SELECT COUNT(*) FROM ".
+            $this->registrationstable." WHERE event1=$events.id OR event2=$events.id OR ".
+            "event3=$events.id OR event4=$events.id)<capacity";
+        $result = mysql_query($query);
+        return mysql_num_rows($result) > 0;
+    }
+
 
     // Private helper functions
 
