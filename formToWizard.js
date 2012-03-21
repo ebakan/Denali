@@ -7,6 +7,8 @@
         
         var element = this;
 
+        var islongnext = new Boolean();
+        var islongprev = new Boolean();
         var steps = $(element).find("fieldset");
         var count = steps.size();
         var submmitButtonName = "#" + options.submitButton;
@@ -46,9 +48,18 @@
                 delEvents();
                 $("#message_display").html('');
                 $("#" + stepName).hide();
-                $("#step" + (i - 1)).show();
-                $(submmitButtonName).hide();
-                selectStep(i - 1);
+                //if($("#id2").html == "" && $("#stepDesc2").hasClass('current') || $("#id3").html == "" && $("#stepDesc3").hasClass('current')){
+                if(islongprev || ($("#id" + i).attr('class') == 'NULL')) {
+                    $("#step" + (i - 1) + " fieldset div").removeAttr('class');
+                    $("#step" + (i - 2)).show();
+                    $(submmitButtonName).hide();
+                    selectStep(i - 2);
+                    islongnext = true;
+                } else {
+                    $("#step" + (i - 1)).show();
+                    $(submmitButtonName).hide();
+                    selectStep(i - 1);
+                }
             });
         }
 
@@ -62,10 +73,21 @@
                 delEvents();
                 $("#message_display").html('');
                 $("#" + stepName).hide();
-                $("#step" + (i + 1)).show();
-                if (i + 2 == count)
-                    $(submmitButtonName).show();
-                selectStep(i + 1);
+
+                if(islongnext || ($("#id" + (i+1)).attr('class') == 'NULL'))
+                {
+                    $("#step" + (i + 2)).show();
+                    $("#step" + (i + 1) + " fieldset div").attr('class', 'NULL');
+                    selectStep(i + 2);
+                    islongnext = false;
+                    islongprev = true;
+                } else {
+                    $("#step" + (i + 1)).show();
+                    //if (i + 2 == count)
+                        //$(submmitButtonName).show();
+                    selectStep(i + 1);
+                    islongprev = false;
+                }
             });
         }
 
@@ -74,11 +96,23 @@
             $("#stepDesc" + i).addClass("current");
             fillevents();
         }
+
         
-        
+        $("#mySelect").change(function() {
+            if($("#length1").html() == 100 && $("#stepDesc0").hasClass('current'))
+                islongnext = true;
+            else if ($("#length2").html() == 100 && $("#stepDesc1").hasClass('current'))
+                islongnext = true;
+            else if ($("#length3").html() == 100 && $("#stepDesc2").hasClass('current'))
+                islongnext = true;
+            else
+                islongnext = false;
+
+        }).trigger('change');
+
         $("#mySelect").click(function() {
             $(".next").show();
-            
+
             if($('#stepDesc3').hasClass('current')){
                 $(submmitButtonName).show();
             }
@@ -113,6 +147,7 @@
     
             if($("#title4").text().length <= 0)
                 $(submmitButtonName).hide();
+            else $(submmitButtonName).show();
 
               break;
               default:
@@ -176,11 +211,9 @@
                "ev.php",
                info,
                function(data) {
-                   alert(data);
                    var errs = data.split(',');
                    if(data != "") {
                        var first = errs[0]-1;
-                       alert(data);
 
                        for(var x=0; x< data.length; x++)
                        {
