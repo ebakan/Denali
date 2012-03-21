@@ -167,10 +167,37 @@
         }
     
         $("#SaveAccount").click(function() {
-           document.myform.eid1.value = $('#id1').text(); 
-           document.myform.eid2.value = $('#id2').text(); 
-           document.myform.eid3.value = $('#id3').text(); 
-           document.myform.eid4.value = $('#id4').text(); 
+            var evid1 = $('#id1').text();
+            var evid2 = $('#id2').text();
+            var evid3 = $('#id3').text();
+            var evid4 = $('#id4').text();
+            var info = "ev1=" + evid1 + "&ev2="+evid2+"&ev3="+evid3+"&ev4="+evid4;
+           $.get(
+               "ev.php",
+               info,
+               function(data) {
+                   alert(data);
+                   var errs = data.split(',');
+                   if(data != "") {
+                       var first = errs[0]-1;
+                       alert(data);
+
+                       for(var x=0; x< data.length; x++)
+                       {
+                            //put error message in top of page for each session      
+                       }
+                       $("#step0, #step1, #step2, #step3").hide();
+                       $("#step" + first).show();
+                       selectStep(first);
+                   }
+
+               },
+               "text"
+           );
+           document.myform.eid1.value = evid1; 
+           document.myform.eid2.value = evid2; 
+           document.myform.eid3.value = evid3; 
+           document.myform.eid4.value = evid4;; 
         
         });
 

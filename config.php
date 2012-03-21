@@ -116,12 +116,9 @@ class system
         $events = $this->eventstable;
         $query = "SELECT *, ".
             "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
-<<<<<<< HEAD
-=======
             "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id) as count ".
             "FROM $events WHERE timeslot=$timeslot AND (SELECT COUNT(*) FROM ".$this->registrationstable.
             " WHERE event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity";
->>>>>>> Added feature for showing/hiding next/prev buttons as well as submit form button.
         return $this->query2D($query);
     }
 

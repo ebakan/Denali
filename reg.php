@@ -244,11 +244,11 @@ else if(isset($_POST['Submit']))
         $("#mySelect").change(function () {
             var str = "";
             $("select#mySelect option:selected").each(function () {
-                str += $(this).attr("id"); /* + " " + $(this).attr('id');*/
+            //    str += $(this).attr("id"); /* + " " + $(this).attr('id');*/
                 fillData($(this).attr("id"));
                 //sayHi();
             });
-            $("#message_display").text(str);
+            //$("#message_display").text(str);
         })
         .trigger('change');
 
