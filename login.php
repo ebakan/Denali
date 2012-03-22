@@ -44,7 +44,7 @@ br {clear:both;}
 <form class="form" method="post" action="loginProc.php">
 <div class="label">Name: </div><div class="input"><input name="name" type="text" id="name" size="15" maxlength="40" /></div>
 <br />
-<div class="label">Student ID: </div><div class="input"><input name="id" type="password" id="id" size="15" maxlength="15" /></div>
+<div class="label">Password:  </div><div class="input"><input name="id" type="password" id="id" size="15" maxlength="15" /></div>
 <br />
 <div class="error" id="spacer">
 <?php

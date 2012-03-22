@@ -262,46 +262,6 @@
             $('#mySelect').find('option').remove();
         }
     
-        /**
-         * Checks to see if event is filled up. Puts events in hidden inputs to be submitted.
-         */
-        $("#SaveAccount").click(function() {
-            var evid1 = $('#id1').text();
-            var evid2 = $('#id2').text();
-            var evid3 = $('#id3').text();
-            var evid4 = $('#id4').text();
-            var info = "ev1=" + evid1 + "&ev2="+evid2+"&ev3="+evid3+"&ev4="+evid4;
-           $.get(
-               "ev.php",
-               info,
-               function(data) {
-                   var errs = data.split(',');
-                   if(data != "") {
-                       var first = errs[0]-1;
-
-                       alert("Sorry! One or more of the events ran out of space. Please choose another.");
-                       for(var x = 0; x < errs.length; x ++)
-                       {
-                            $("#step" + (errs[x]-1) + " fieldset div").html('');
-                       }
-
-                        $(".next").hide();
-                        $(submmitButtonName).hide();
-
-                       $("#step0, #step1, #step2, #step3").hide();
-                       $("#step" + first).show();
-                       selectStep(first);
-                   }
-
-               },
-               "text"
-           );
-           document.myform.eid1.value = evid1; 
-           document.myform.eid2.value = evid2; 
-           document.myform.eid3.value = evid3; 
-           document.myform.eid4.value = evid4;; 
-        
-        });
 
 
     }

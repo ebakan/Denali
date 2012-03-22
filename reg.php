@@ -31,7 +31,14 @@ if ($system->getStudentRegistrations($id))
 //AFTER SUBMISSION
 else if(isset($_POST['Submit']))
     {
-        //$eid1 = 
+        $eid1 = $_POST['eid1']; 
+        $eid2 = $_POST['eid2']; 
+        $eid3 = $_POST['eid3']; 
+        $eid4 = $_POST['eid4']; 
+        echo $eid1." ".$eid2." ".$eid3." ".$eid4;
+
+
+
 
     }
 
@@ -42,9 +49,10 @@ else if(isset($_POST['Submit']))
 <title>Registration</title>
 
     <style type="text/css">
-        body { font-family:Lucida Sans, Arial, Helvetica, Sans-Serif; font-size:13px; margin:20px;}
+        body { background-color:#0033CC; font-family:Lucida Sans, Arial, Helvetica, Sans-Serif; font-size:13px; margin:20px;}
         #main { position: absolute; width:960px; margin: 0px auto; border:solid 1px #b2b3b5; -moz-border-radius:10px; padding:20px; background-color:#f6f6f6;}
         #header { text-align:center; border-bottom:solid 1px #b2b3b5; margin: 0 0 20px 0; }
+        #header img{ margin-right: 51px; }
         #SignupForm { position: absolute; top: 360px; right: 200px; }
         fieldset { border:none; width:320px;}
         legend { font-size:18px; margin:0px; padding:10px 0px; color:#0033CC; font-weight:bold;}
@@ -63,11 +71,14 @@ else if(isset($_POST['Submit']))
 
         /*mine*/
         h2#reg { margin-top:50px; text-align: center;}
-#mySelect { margin-left:95px; margin-top:150px; width:300px; }
+#mySelect { margin-left:95px; margin-top:150px; width:300px; border-style:solid; }
+        form { border-style:solid; background-color: white; }
 #message_display { margin-top: 30px;  }
 #lo { float:right; }
+        #footer { height: 250px; }
         div#spacer { margin-top: 10px; }
         br {clear:both;}
+        .label { font-weight: bold; text-decoration:underline; text-align: center; }
 
         .sub { clear:left; }
 
@@ -85,7 +96,7 @@ else if(isset($_POST['Submit']))
 
 <body>
 <a href="removeCookie.php" id="lo">Logout</a>
-<h2 id="reg">Registration</h2>
+<h2 id="reg">Immigration Summit Registration</h2>
 
 <div class="main" >
         <div id="header">
@@ -95,62 +106,62 @@ else if(isset($_POST['Submit']))
         <form name="myform" id="SignupForm" action="">
             <fieldset>
                 <legend>FRAME 1</legend>
-                <div id="id1"></div>
-                <div id="title1"></div>
-                <div id="speaker1"></div>
-                <div id="description1"></div>
-                <div id="timeslot1"></div>
-                <div id="length1"></div>
-                <div id="location1"></div>
-                <div id="capacity1"></div>
-                <div id="email1"></div>
-                <div id="count1"></div>
+                <div id="id1" style="visibility:hidden"></div>
+                <div class="label">Title </div><div id="title1" style="text-align:center"></div><br />
+                <div class="label">Speaker </div><div id="speaker1" style="text-align:center"></div><br />
+                <div class="label">Description </div><div id="description1" style="text-align:center"></div><br />
+                <div id="timeslot1" style="visibility:hidden"></div>
+                <div class="label">Length(Mins) </div><div id="length1" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location1" style="text-align:center"></div><br />
+                <div class="label">Capacity </div><div id="capacity1" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email1" style="text-align:center"></div><br />
+                <div id="count1" style="visibility:hidden"></div>
             </fieldset>
             <fieldset>
                 <legend>FRAME 2</legend>
-                <div id="id2"></div>
-                <div id="title2"></div>
-                <div id="speaker2"></div>
-                <div id="description2"></div>
-                <div id="timeslot2"></div>
-                <div id="length2"></div>
-                <div id="location2"></div>
-                <div id="capacity2"></div>
-                <div id="email2"></div>
-                <div id="count2"></div>
+                <div id="id1" style="visibility:hidden"></div>
+                <div class="label">Title </div><div id="title2" style="text-align:center"></div><br />
+                <div class="label">Speaker </div><div id="speaker2" style="text-align:center"></div><br />
+                <div class="label">Description </div><div id="description2" style="text-align:center"></div><br />
+                <div id="timeslot2" style="visibility:hidden"></div>
+                <div class="label">Length(Mins) </div><div id="length2" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location2" style="text-align:center"></div><br />
+                <div class="label">Capacity </div><div id="capacity2" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email2" style="text-align:center"></div><br />
+                <div id="count2" style="visibility:hidden"></div>
             </fieldset>
             <fieldset>
                 <legend>FRAME 3</legend>
-                <div id="id3"></div>
-                <div id="title3"></div>
-                <div id="speaker3"></div>
-                <div id="description3"></div>
-                <div id="timeslot3"></div>
-                <div id="length3"></div>
-                <div id="location3"></div>
-                <div id="capacity3"></div>
-                <div id="email3"></div>
-                <div id="count3"></div>
+                <div id="id3" style="visibility:hidden"></div>
+                <div class="label">Title </div><div id="title3" style="text-align:center"></div><br />
+                <div class="label">Speaker </div><div id="speaker3" style="text-align:center"></div><br />
+                <div class="label">Description </div><div id="description3" style="text-align:center"></div><br />
+                <div id="timeslot3" style="visibility:hidden"></div>
+                <div class="label">Length(Mins) </div><div id="length3" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location3" style="text-align:center"></div><br />
+                <div class="label">Capacity </div><div id="capacity3" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email3" style="text-align:center"></div><br />
+                <div id="count3" style="visibility:hidden"></div>
             </fieldset>
             <fieldset>
                 <legend>FRAME 4</legend>
-                <div id="id4"></div>
-                <div id="title4"></div>
-                <div id="speaker4"></div>
-                <div id="description4"></div>
-                <div id="timeslot4"></div>
-                <div id="length4"></div>
-                <div id="location4"></div>
-                <div id="capacity4"></div>
-                <div id="email4"></div>
-                <div id="count4"></div>
+                <div id="id4" style="visibility:hidden"></div>
+                <div class="label">Title </div><div id="title4" style="text-align:center"></div><br />
+                <div class="label">Speaker </div><div id="speaker4" style="text-align:center"></div><br />
+                <div class="label">Description </div><div id="description4" style="text-align:center"></div><br />
+                <div id="timeslot4" style="visibility:hidden"></div>
+                <div class="label">Length(Mins) </div><div id="length4" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location4" style="text-align:center"></div><br />
+                <div class="label">Capacity </div><div id="capacity4" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email4" style="text-align:center"></div><br />
+                <div id="count4" style="visibility:hidden"></div>
             </fieldset>
             <input type="hidden" name="eid1" />
             <input type="hidden" name="eid2" />
             <input type="hidden" name="eid3" />
             <input type="hidden" name="eid4" />
             <p>
-                <input name="Submit" id="SaveAccount" type="button" value="Submit form" />
+                <input name="Submit" id="SaveAccount" type="button" value="Go!" />
             </p>
         </form>
 
@@ -162,6 +173,7 @@ else if(isset($_POST['Submit']))
 
     <select id="mySelect" size="15"></select>
     <div id="spacer"></div>
+    <div id="footer"></div>
 
     <!--
         Fills in mySelect with events and displays event
@@ -172,6 +184,59 @@ else if(isset($_POST['Submit']))
     </script>
 
     <script type="text/javascript" src="filldata.js"></script>
+    <script type="text/javascript">
+        /**
+         * Checks to see if event is filled up. Puts events in hidden inputs to be submitted.
+         */
+        $("#SaveAccount").click(function() {
+            var evid1 = $('#id1').text();
+            var evid2 = $('#id2').text();
+            var evid3 = $('#id3').text();
+            var evid4 = $('#id4').text();
+            var info = "ev1=" + evid1 + "&ev2="+evid2+"&ev3="+evid3+"&ev4="+evid4;
+           $.get(
+               "ev.php",
+               info,
+               function(data) {
+                   var errs = data.split(',');
+                   if(data != "") {
+                       var first = errs[0]-1;
+
+                       alert("Sorry! One or more of the events ran out of space. Please choose another.");
+                       for(var x = 0; x < errs.length; x ++)
+                       {
+                            $("#step" + (errs[x]-1) + " fieldset div").html('');
+                       }
+
+                        $(".next").hide();
+                        $(submmitButtonName).hide();
+
+                       $("#step0, #step1, #step2, #step3").hide();
+                       $("#step" + first).show();
+                       selectStep(first);
+                   } else {
+                       $.get(
+                            "regstuds.php",
+                          //TEST STILL  info + "&id=" + <?php echo $_SESSION['uid'] ?>,
+                          info,
+                            function(data) {
+                                alert(data);
+
+                            },
+                            "text");
+                   }
+
+               },
+               "text"
+           );
+           document.myform.eid1.value = evid1; 
+           document.myform.eid2.value = evid2; 
+           document.myform.eid3.value = evid3; 
+           document.myform.eid4.value = evid4;; 
+        
+        });
+
+    </script>
 
 
 

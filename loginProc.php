@@ -5,6 +5,7 @@ require("config.php");
 $name = $_POST['name'];
 $id = $_POST['id'];
 db_login();
+$system = new system();
 
 //Screens html/sql injections
 $name = htmlentities($name);
@@ -12,7 +13,11 @@ $name = mysql_real_escape_string($name);
 $id = htmlentities($id);
 $id = mysql_real_escape_string($id);
 
-if(test_login($name, $id))
+$ldap = new LdapUser();
+
+echo $ldap->auth($name, $id);
+
+/*if(test_login($name, $id))
 {
     $hashkey = $name;
     $hashkey .= SALT;
@@ -30,6 +35,7 @@ if(test_login($name, $id))
 }else{
     header("Location: login.php?error=0");
 }
+*/
 
 
 

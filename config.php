@@ -1,10 +1,10 @@
-<?php
+    <?php
 
-//method calling syntax needs checking, variables as well
+    //method calling syntax needs checking, variables as well
 
-//Error Codes:
-// 0: failed database login
-// 1: failed ldap login
+    //Error Codes:
+    // 0: failed database login
+    // 1: failed ldap login
 // 2: incorrect user info
 // 3: no id matches user
 
@@ -16,11 +16,13 @@ function db_login()
 	global $sql_server, $sql_username, $sql_password, $db_name;
 	$db_link = mysql_connect($sql_server, $sql_username, $sql_password);
 	if (!$db_link) {
-        header("Location: login.php?error=2");
+        //header("Location: login.php?error=2");
+        echo "DB_LINK failed";
 	}
 	$current_db = mysql_select_db($db_name, $db_link);
 	if (!$current_db) {
-        header("Location: login.php?error=2");
+        //header("Location: login.php?error=2");
+        echo "selectDB FAILED";
 	}
 }
 
