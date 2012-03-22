@@ -1,4 +1,6 @@
-
+/**
+ * Main javascript for reg.php
+ */
 (function($) {
     $.fn.formToWizard = function(options) {
         options = $.extend({  
@@ -16,6 +18,9 @@
 
         $(element).before("<ul id='steps'></ul>");
 
+        /**
+         * Inserts buttons depending on beginning/end/middle frame   
+         */
         steps.each(function(i) {
             $(this).wrap("<div id='step" + i + "'></div>");
             $(this).append("<p id='step" + i + "commands'></p>");
@@ -40,15 +45,16 @@
             }
         });
 
+        /**
+         * Handles previous button and the click of it. Accounts for long/short events 
+         */
         function createPrevButton(i) {
             var stepName = "step" + i;
             $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='prev'>< Back</a>");
 
             $("#" + stepName + "Prev").bind("click", function(e) {
                 delEvents();
-                $("#message_display").html('');
                 $("#" + stepName).hide();
-                //if($("#id2").html == "" && $("#stepDesc2").hasClass('current') || $("#id3").html == "" && $("#stepDesc3").hasClass('current')){
                 if(islongprev || ($("#id" + i).attr('class') == 'NULL')) {
                     $("#step" + (i - 1) + " fieldset div").removeAttr('class');
                     $("#step" + (i - 2)).show();
@@ -63,6 +69,9 @@
             });
         }
 
+        /**
+         * Handles next button and the click of it. Accounts for long/short events 
+         */
         function createNextButton(i) {
 
             var stepName = "step" + i;
@@ -78,6 +87,7 @@
                 {
                     $("#step" + (i + 2)).show();
                     $("#step" + (i + 1) + " fieldset div").attr('class', 'NULL');
+                    $("#step" + (i + 1) + " fieldset div").html('');
                     selectStep(i + 2);
                     islongnext = false;
                     islongprev = true;
@@ -87,10 +97,43 @@
                         //$(submmitButtonName).show();
                     selectStep(i + 1);
                     islongprev = false;
+
+        checkDups(i + 1);
                 }
             });
         }
 
+        /**
+        * Check for duplates so user cannot sign up for same event twice.
+        */
+        function checkDups(ts, i)
+        {
+            switch(ts){
+                case 2:
+                    var id = $("#title" + 1).text();
+                    if(id == i)
+                        return true;
+                    break;
+                case 3:
+                    var id = $("#title" + 1).text();
+                    if(id == i)
+                        return true;
+                    break;
+                case 4:
+                    var id = $("#title" + 1).text();
+                    if(id == i)
+                        return true;
+                    break;
+                default: return false; break;
+            }
+
+        }
+
+
+        /**
+         * Adds/removes class current in order to style the Session indicators
+         * Fills the valid events each time it is called
+         */
         function selectStep(i) {
             $("#steps li").removeClass("current");
             $("#stepDesc" + i).addClass("current");
@@ -98,6 +141,9 @@
         }
 
         
+        /**
+         * Every time an item is selected, it will set a boolean to see if it is long or short
+         */
         $("#mySelect").change(function() {
             if($("#length1").html() == 100 && $("#stepDesc0").hasClass('current'))
                 islongnext = true;
@@ -110,6 +156,10 @@
 
         }).trigger('change');
 
+        /**
+         * Shows the next button when event is clicked for the first event.
+         * Shows submit button when event is clicked and is on last session.
+         */
         $("#mySelect").click(function() {
             $(".next").show();
 
@@ -118,6 +168,9 @@
             }
         });
 
+        /**
+         * Handles showing/hiding next buttons when nothing is selected
+         */
         $(".next, .prev").click(function() {
             switch($(".current").attr("id")) {
               case "stepDesc0":
@@ -155,6 +208,9 @@
             }
         });
 
+        /**
+         * Fills the select pane with options of the session id
+         */
         function fillevents()
         {
 
@@ -170,37 +226,45 @@
                 });
             } else if($('#stepDesc1').hasClass('current')){
                 $.each(secondTimeSlotTitles, function(val, text) {
-                
-                    $('#mySelect').append(
-                        $('<option class="click2"></option>').attr("id", val).text(text)
-                    );
+                   if(!checkDups(2, text)) { 
+                        $('#mySelect').append(
+                            $('<option class="click2"></option>').attr("id", val).text(text)
+                        );
+                   }
                     
                 });
             } else if($('#stepDesc2').hasClass('current')){
                 $.each(thirdTimeSlotTitles, function(val, text) {
-                
-                    $('#mySelect').append(
-                        $('<option class="click3"></option>').attr("id", val).text(text)
-                    );
+                   if(!checkDups(3, text)) { 
+                        $('#mySelect').append(
+                            $('<option class="click3"></option>').attr("id", val).text(text)
+                        );
+                    }
                     
                 });
             } else if($('#stepDesc3').hasClass('current')){
                 $.each(fourthTimeSlotTitles, function(val, text) {
-                
-                    $('#mySelect').append(
-                        $('<option class="click4"></option>').attr("id", val).text(text)
-                    );
+                       if(!checkDups(4, text)) { 
+                            $('#mySelect').append(
+                                $('<option class="click4"></option>').attr("id", val).text(text)
+                            );
+                        }
                     
                 });
             }
         }
 
-        //delete events from previous session selection
+        /**
+         * Deletes all options from select.
+         */
         function delEvents()
         {
             $('#mySelect').find('option').remove();
         }
     
+        /**
+         * Checks to see if event is filled up. Puts events in hidden inputs to be submitted.
+         */
         $("#SaveAccount").click(function() {
             var evid1 = $('#id1').text();
             var evid2 = $('#id2').text();
@@ -215,10 +279,15 @@
                    if(data != "") {
                        var first = errs[0]-1;
 
-                       for(var x=0; x< data.length; x++)
+                       alert("Sorry! One or more of the events ran out of space. Please choose another.");
+                       for(var x = 0; x < errs.length; x ++)
                        {
-                            //put error message in top of page for each session      
+                            $("#step" + (errs[x]-1) + " fieldset div").html('');
                        }
+
+                        $(".next").hide();
+                        $(submmitButtonName).hide();
+
                        $("#step0, #step1, #step2, #step3").hide();
                        $("#step" + first).show();
                        selectStep(first);
