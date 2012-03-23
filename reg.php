@@ -63,7 +63,8 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
         </div>
         <div id="info">
         <p> Below you will find various presentations for the justice summit that you can sign up for. Every class has one required event(which you will choose), 
-        and if you know you will be absent on these days, please choose Planned Absence at the bottom of the list. Go bells!
+        and if you know you will be absent on these days, please choose Planned Absence at the bottom of the list. If your mandatory event is 
+        on the same day you are absent, select that event anyways. Go bells! 
         </p>
         </div>
         <br />
