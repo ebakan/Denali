@@ -174,3 +174,14 @@ input.blur {
 #loginstructions {
     margin-bottom: 10px;
 }
+#info {
+    width: 70%;
+    text-align:center;
+    min-width:300px;
+    margin:0 auto;
+}
+#info p {
+    font-size: 17px;
+    text-align:center;
+    color:#b0b1b3;
+}

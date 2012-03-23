@@ -70,6 +70,12 @@ else if(isset($_POST['Submit']))
             <img src="bell.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
             <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
         </div>
+        <div id="info">
+        <p> Below you will find various presentations for the justice summit that you can sign up for. Every class has one required event(which you will choose), 
+        and if you know you will be absent on these days, please choose Planned Absence at the bottom of the list. Go bells!
+        </p>
+        </div>
+        <br />
         <form name="myform" id="SignupForm" action="">
             <fieldset>
                 <div id="id1" style="visibility:hidden"></div>
