@@ -50,6 +50,18 @@ else{
         if(isset($_SESSION['uid']))
         header("Location: reg.php");
     }
+
+    for($i=1;$i<=4;$i++) {
+        if(!isset($events[$i])) {
+            $events[$i]=array('title' => 'None',
+                              'speaker' => 'None',
+                              'description' => 'None',
+                              'length' => 'None',
+                              'location' => 'None',
+                              'email' => 'None');
+        }
+
+    }
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
