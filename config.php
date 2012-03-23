@@ -119,13 +119,37 @@ class system
      */
     public function getValidEventsByTimeslot($id, $timeslot) {
         $id = mysql_escape_string($id);
+        $year = substr($id,1,2);
+        $grade = 24-intval($year);
         $timeslot = mysql_escape_string($timeslot);
         $events = $this->eventstable;
+        // Check if there is a restricted event for this person
+        // mMOAQ - mini Mother Of All Queries
+        // Basic select
         $query = "SELECT *, ".
+            // Subquery for count
             "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
             "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id) as count ".
-            "FROM $events WHERE timeslot=$timeslot AND (SELECT COUNT(*) FROM ".$this->registrationstable.
-            " WHERE event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity";
+            // Check for timeslot and the restricted year
+            "FROM $events WHERE timeslot=$timeslot AND required=$grade";
+        $restricted = $this->query2D($query);
+        // Return this if there is a result
+        if($restricted && count($restricted)>0) {
+            return $restricted;
+        }
+        // No restricted events, do the full MOAQ - mother of all queries
+        // Basic select
+        $query = "SELECT *, ".
+            // Add subquery for count
+            "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id) as count ".
+            // Check for timeslot and not a required event (for other classes)
+            "FROM $events WHERE timeslot=$timeslot AND required IS NULL ".
+            // Make sure the event is not restricted or we have access to it
+            "AND (restricted IS NULL OR FIND_IN_SET('$grade',restricted)>0) ".
+            // Make sure capacity is less than 0 (unlimited) or the current count is less than the capacity
+            "AND (capacity<0 OR (SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity)";
         return $this->query2D($query);
     }
 
@@ -268,9 +292,9 @@ class system
             return true;
         }
         $events = $this->eventstable;
-        $query = "SELECT * FROM $events WHERE id=$eid AND (SELECT COUNT(*) FROM ".
+        $query = "SELECT * FROM $events WHERE id=$eid AND (capacity<0 OR (SELECT COUNT(*) FROM ".
             $this->registrationstable." WHERE event1=$events.id OR event2=$events.id OR ".
-            "event3=$events.id OR event4=$events.id)<capacity";
+            "event3=$events.id OR event4=$events.id)<capacity)";
         $result = mysql_query($query);
         return mysql_num_rows($result) > 0;
     }

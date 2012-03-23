@@ -3,7 +3,7 @@ print("hi");
 require_once("config.php");
 $system = new system();
 //var_dump($system->getValidEvents());
-$data = $system->getValidEvents();
+$data = $system->getValidEvents(212014);
 
 //var_dump($data[1][0]);
 
