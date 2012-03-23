@@ -72,7 +72,7 @@ else if(isset($_POST['Submit']))
         <br />
         <form name="myform" id="SignupForm" action="">
             <fieldset>
-                <div id="id1" style="visibility:hidden"></div>
+                <legend>March 30, 10:20 – 11:10 AM</legend><br />
                 <div class="label">Title </div><div id="title1" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker1" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description1" style="text-align:center"></div><br />
@@ -80,12 +80,13 @@ else if(isset($_POST['Submit']))
                 <div class="label">Room </div><div id="location1" style="text-align:center"></div><br />
                 <div class="label">Email </div><div id="email1" style="text-align:center"></div><br />
                 <div class="label">Spots Available </div><div id="spots1"  style="text-align:center"></div><br />
+                <div class="hidden" id="id1" style="visibility:hidden"></div>
                 <div class="hidden" id="timeslot1" style="visibility:hidden;"></div>
                 <div class="hidden" id="capacity1" style="visibility: hidden;"></div>
                 <div class="hidden" id="count1" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
-                <div id="id2" style="visibility:hidden"></div>
+                <legend>March 30, 11:20 – 12:10 AM</legend><br />
                 <div class="label">Title </div><div id="title2" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker2" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description2" style="text-align:center"></div><br />
@@ -93,13 +94,14 @@ else if(isset($_POST['Submit']))
                 <div class="label">Room </div><div id="location2" style="text-align:center"></div><br />
                 <div class="label">Email </div><div id="email2" style="text-align:center"></div><br />
                 <div class="label">Spots Available </div><div id="spots2"  style="text-align:center"></div><br />
+                <div class="hidden" id="id2" style="visibility:hidden"></div>
                 <div class="hidden" id="timeslot2" style="visibility:hidden;"></div>
                 <div class="hidden" id="capacity2" style="visibility: hidden;"></div>
                 <div class="hidden" id="count2" style="visibility:hidden;"></div>
 
             </fieldset>
             <fieldset>
-                <div id="id3" style="visibility:hidden"></div>
+                <legend>April 2, 10:20 – 11:10 AM</legend><br />
                 <div class="label">Title </div><div id="title3" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker3" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description3" style="text-align:center"></div><br />
@@ -107,12 +109,13 @@ else if(isset($_POST['Submit']))
                 <div class="label">Room </div><div id="location3" style="text-align:center"></div><br />
                 <div class="label">Email </div><div id="email3" style="text-align:center"></div><br />
                 <div class="label">Spots Available </div><div id="spots3"  style="text-align:center"></div><br />
+                <div class="hidden" id="id3" style="visibility:hidden"></div>
                 <div class="hidden" id="timeslot3" style="visibility:hidden;"></div>
                 <div class="hidden" id="capacity3" style="visibility: hidden;"></div>
                 <div class="hidden" id="count3" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
-                <div id="id4" style="visibility:hidden"></div>
+                <legend>April 2, 11:20 – 12:10 AM</legend><br />
                 <div class="label">Title </div><div id="title4" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker4" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description4" style="text-align:center"></div><br />
@@ -120,6 +123,7 @@ else if(isset($_POST['Submit']))
                 <div class="label">Room </div><div id="location4" style="text-align:center"></div><br />
                 <div class="label">Email </div><div id="email4" style="text-align:center"></div><br />
                 <div class="label">Spots Available </div><div id="spots4"  style="text-align:center"></div><br />
+                <div class="hidden" id="id4" style="visibility:hidden"></div>
                 <div class="hidden" id="timeslot4" style="visibility:hidden;"></div>
                 <div class="hidden" id="capacity4" style="visibility: hidden;"></div>
                 <div class="hidden" id="count4" style="visibility:hidden;"></div>
