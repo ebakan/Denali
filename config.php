@@ -123,6 +123,7 @@ class system
      * Would be used when asking a student to change a single timeslot registration
      * @param id the student id
      * @param timeslot the timeslot to list events for
+     * @param noLongs whether long events should be disabled or not
      * @return a 2D array of available events for the timeslot ->
      *                       associative array of database data for each event plus
      *                       the number of people signed up for it
