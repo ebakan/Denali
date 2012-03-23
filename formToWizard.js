@@ -146,6 +146,10 @@
          * Every time an item is selected, it will set a boolean to see if it is long or short
          */
         $("#mySelect").change(function() {
+
+             if($("#mySelect").val() != null)
+                 $(".next").show();
+
             if($("#length1").html() == 100 && $("#stepDesc0").hasClass('current'))
                 islongnext = true;
             else if ($("#length2").html() == 100 && $("#stepDesc1").hasClass('current'))
@@ -186,9 +190,13 @@
          * Shows the next button when event is clicked for the first event.
          * Shows submit button when event is clicked and is on last session.
          */
-        $("#mySelect").click(function() {
+             /*
+        $("#mySelect").select(function() {
+            alert("it worked");
             $(".next").show();
+
         });
+        */
 
         /**
          * Handles showing/hiding next buttons when nothing is selected
