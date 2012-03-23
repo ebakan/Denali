@@ -49,54 +49,8 @@ else if(isset($_POST['Submit']))
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Registration</title>
-<<<<<<< Updated upstream
     <link rel="stylesheet" type="text/css" href="style.css" />
-=======
 
-    <style type="text/css">
-        body {
-        /*background-color:#0033CC; */
-        font-family:Lucida Sans, Arial, Helvetica, Sans-Serif; 
-        font-size:13px; 
-        margin:20px;
-        background-image:url('vertical_cloth.png');
-        background-repeat:repeat;
-        }
-        #main { position: absolute; width:960px; margin: 0px auto; border:solid 1px #b2b3b5; -moz-border-radius:10px; padding:20px; background-color:#f6f6f6;}
-        #header { text-align:center; border-bottom:solid 1px #b2b3b5; margin: 0 0 20px 0; }
-        #header img{ margin-right: 51px; }
-        #SignupForm { position: absolute; top: 360px; right: 200px; }
-        fieldset { border:none; width:320px;}
-        legend { font-size:18px; margin:0px; padding:10px 0px; color:#0033CC; font-weight:bold;}
-        label { display:block; margin:15px 0 5px;}
-        input[type=text], input[type=password] { width:300px; padding:5px; border:solid 1px #000;}
-        .prev, .next { background-color:#0033CC; padding:5px 10px; color:#fff; text-decoration:none;}
-        .prev:hover, .next:hover { background-color:#000; text-decoration:none;}
-        .prev { float:left;}
-        .next { float:right;}
-        #steps { float: right; margin-right: 20%; list-style:none; overflow:hidden; padding:0px;}
-        #steps li {font-size:24px; float:left; padding:10px; color:#b0b1b3;}
-        #steps li span {font-size:11px; display:block;}
-        #steps li.current { color:#0033CC;}
-        #makeWizard { background-color:#b0232a; color:#fff; padding:5px 10px; text-decoration:none; font-size:18px;}
-        #makeWizard:hover { background-color:#000;}
-
-        /*mine*/
-        h2#reg { color: white; margin-top:14px; text-align: center;}
-#mySelect { margin-left:95px; margin-top:150px; width:300px; border-style:solid; }
-        form { border-style:solid; background-color: white; }
-#message_display { margin-top: 30px;  }
-#lo { float:right; }
-        #footer { height: 250px; }
-        div#spacer { margin-top: 10px; }
-        br {clear:both;}
-        .label { font-weight: bold; text-decoration:underline; text-align: center; }
-
-        .sub { clear:left; }
-
-    </style>
-
->>>>>>> Stashed changes
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="formToWizard.js"></script>
 
