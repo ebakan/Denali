@@ -97,7 +97,7 @@ class system
     public function getValidEvents($id) {
         $id = mysql_escape_string($id);
         $outArray = array();
-        // Work backwards because we need to 
+        // Work backwards because we need it to
         for ($i = 4; $i >= 1; $i--) {
             // Disable long events if there's a required event in the next one
             $noLongs = false;
