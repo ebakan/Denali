@@ -69,7 +69,7 @@ if(isset($_GET['error']))
     switch($_GET['error']){
     
     case 0:
-        echo "Please e-enter your email address and password.";
+        echo "Please re-enter your email address and password.";
         break;
     case 1:
         echo "You have already registered. You have been signed out.";
