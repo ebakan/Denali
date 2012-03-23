@@ -75,7 +75,7 @@ input[type=text], input[type=password] {
     font-size:24px;
     float:left;
     padding:10px;
-    color:#b0b1b3;
+    color:#0033CC;
 }
 #steps li span {font-size:11px
     display:block;
@@ -91,7 +91,7 @@ input[type=text], input[type=password] {
     font-size:18px;
 }
 #makeWizard:hover {
-    background-color:#000;
+    background-color:#0033CC;
 }
 
 /*Custom stuff*/

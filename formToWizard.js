@@ -26,7 +26,10 @@
             $(this).append("<p id='step" + i + "commands'></p>");
 
             var name = $(this).find("legend").html();
-            $("#steps").append("<li id='stepDesc" + i + "'>Session " + (i + 1) + "</li>");
+            if(i==4)
+                $("#steps").append("<li id='stepDesc" + i + "'>Confirmation </li>");
+            else
+                $("#steps").append("<li id='stepDesc" + i + "'>Session " + (i + 1) + "</li>");
 
             if (i == 0) {
                 createNextButton(i);
@@ -97,8 +100,6 @@
                         //$(submmitButtonName).show();
                     selectStep(i + 1);
                     islongprev = false;
-
-        checkDups(i + 1);
                 }
             });
         }
@@ -110,17 +111,17 @@
         {
             switch(ts){
                 case 2:
-                    var id = $("#title" + 1).text();
+                    var id = $("#title1").text();
                     if(id == i)
                         return true;
                     break;
                 case 3:
-                    var id = $("#title" + 1).text();
+                    var id = $("#title2").text();
                     if(id == i)
                         return true;
                     break;
                 case 4:
-                    var id = $("#title" + 1).text();
+                    var id = $("#title3").text();
                     if(id == i)
                         return true;
                     break;
@@ -162,10 +163,6 @@
          */
         $("#mySelect").click(function() {
             $(".next").show();
-
-            if($('#stepDesc3').hasClass('current')){
-                $(submmitButtonName).show();
-            }
         });
 
         /**
@@ -197,11 +194,6 @@
                 else
                     $(".next").hide();
 
-    
-            if($("#title4").text().length <= 0)
-                $(submmitButtonName).hide();
-            else $(submmitButtonName).show();
-
               break;
               default:
               break;
@@ -213,7 +205,7 @@
          */
         function fillevents()
         {
-
+            $("#mySelect").show();
 
                 //Fills mySelect with options
             if($('#stepDesc0').hasClass('current')){
@@ -251,6 +243,27 @@
                         }
                     
                 });
+            } else if($('#stepDesc4').hasClass('current')){
+                $("#mySelect").hide();
+
+                for(var x = 1; x <= 4; x++){
+                   var y = $("#title" + x).text();
+                   $("#title5" + x).text(y); 
+                }
+
+                for(var x = 1; x <= 4; x++){
+                   var y = $("#speaker" + x).text();
+                   $("#speaker5" + x).text(y); 
+                }
+
+                for(var x = 1; x <= 4; x++){
+                   var y = $("#location" + x).text();
+                   $("#location5" + x).text(y); 
+                }
+
+
+                $(submmitButtonName).show();
+
             }
         }
 
@@ -277,7 +290,7 @@
                info,
                function(data) {
                    var errs = data.split(',');
-                   console.log(realData);
+                   realData = $.trim(data);
                    if(realData != "") {
                        var first = errs[0]-1;
 

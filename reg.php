@@ -50,7 +50,6 @@ else if(isset($_POST['Submit']))
 <head>
 <title>Registration</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
-
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="formToWizard.js"></script>
 
@@ -72,7 +71,6 @@ else if(isset($_POST['Submit']))
         </div>
         <form name="myform" id="SignupForm" action="">
             <fieldset>
-                <legend>FRAME 1</legend>
                 <div id="id1" style="visibility:hidden"></div>
                 <div class="label">Title </div><div id="title1" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker1" style="text-align:center"></div><br />
@@ -85,7 +83,6 @@ else if(isset($_POST['Submit']))
                 <div id="count1" style="visibility:hidden"></div>
             </fieldset>
             <fieldset>
-                <legend>FRAME 2</legend>
                 <div id="id1" style="visibility:hidden"></div>
                 <div class="label">Title </div><div id="title2" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker2" style="text-align:center"></div><br />
@@ -98,7 +95,6 @@ else if(isset($_POST['Submit']))
                 <div id="count2" style="visibility:hidden"></div>
             </fieldset>
             <fieldset>
-                <legend>FRAME 3</legend>
                 <div id="id3" style="visibility:hidden"></div>
                 <div class="label">Title </div><div id="title3" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker3" style="text-align:center"></div><br />
@@ -111,7 +107,6 @@ else if(isset($_POST['Submit']))
                 <div id="count3" style="visibility:hidden"></div>
             </fieldset>
             <fieldset>
-                <legend>FRAME 4</legend>
                 <div id="id4" style="visibility:hidden"></div>
                 <div class="label">Title </div><div id="title4" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker4" style="text-align:center"></div><br />
@@ -122,6 +117,29 @@ else if(isset($_POST['Submit']))
                 <div class="label">Capacity </div><div id="capacity4" style="text-align:center"></div><br />
                 <div class="label">Email </div><div id="email4" style="text-align:center"></div><br />
                 <div id="count4" style="visibility:hidden"></div>
+            </fieldset>
+            <fieldset>
+                <div class="ev"> First Event:<br /> <br />
+                    <div class="label">Title </div><div id="title51" style="text-align:center"></div><br />
+                    <div class="label">Speaker </div><div id="speaker51" style="text-align:center"></div><br />
+                    <div class="label">Room </div><div id="location51" style="text-align:center"></div><br />
+                </div>
+                <div class="ev"> Second Event:<br /> <br />
+                    <div class="label">Title </div><div id="title52" style="text-align:center"></div><br />
+                    <div class="label">Speaker </div><div id="speaker52" style="text-align:center"></div><br />
+                    <div class="label">Room </div><div id="location52" style="text-align:center"></div><br />
+                </div>
+                <div class="ev"> Third Event: <br /><br />
+                    <div class="label">Title </div><div id="title53" style="text-align:center"></div><br />
+                    <div class="label">Speaker </div><div id="speaker53" style="text-align:center"></div><br />
+                    <div class="label">Room </div><div id="location53" style="text-align:center"></div><br />
+                </div>
+                <div class="ev"> Fourth Event: <br /><br />
+                    <div class="label">Title </div><div id="title54" style="text-align:center"></div><br />
+                    <div class="label">Speaker </div><div id="speaker54" style="text-align:center"></div><br />
+                    <div class="label">Room </div><div id="location54" style="text-align:center"></div><br />
+                </div>
+
             </fieldset>
             <input type="hidden" name="eid1" />
             <input type="hidden" name="eid2" />
