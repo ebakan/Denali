@@ -11,6 +11,8 @@
 
         var islongnext = new Boolean();
         var islongprev = new Boolean();
+        var scottie1 = new Boolean();
+        var scottie3 = new Boolean();
         var steps = $(element).find("fieldset");
         var count = steps.size();
         var submmitButtonName = "#" + options.submitButton;
@@ -270,11 +272,10 @@
                 });
             } else if($('#stepDesc2').hasClass('current')){
                 $.each(thirdTimeSlotTitles, function(val, text) {
-                   if(!checkDups(3, text)) { 
+                   if(!checkDups(3, text)) 
                         $('#mySelect').append(
                             $('<option class="click3"></option>').attr("id", val).text(text)
                         );
-                    }
                     
                 });
             } else if($('#stepDesc3').hasClass('current')){
@@ -316,11 +317,29 @@
                        $("#location5" + x).text(y); 
                 }
 
+                if(($("#id1").text() == 9 && $("#id3").text() != 10) || ($("#id3").text() == 10 && $("#id1").text() != 9)){
+                    var done = false;
+                    alert("You must choose Scottie Hill's presentation for both days if you would like to attend.");
+                    $("#step0, #step1, #step2, #step3, #step4").hide();
+                    if( $("#id1").text() == 9)
+                    {
+                        $("#step2").show();
+                        selectStep(2);
+                    }
+                    else
+                    {
+                        $("#step0").show();
+                        selectStep(0);
+                    }
+                } else
+                    done = true;
 
-                $(submmitButtonName).show();
+                if(done)
+                    $(submmitButtonName).show();
 
             }
         }
+
 
         /**
          * Deletes all options from select.
@@ -374,7 +393,10 @@
                             "regstuds.php",
                           info + "&id=" + uid,
                             function(data) {
-                                alert(data);
+                                if(data == 1)
+                                    window.location = "reviewEvents.php"
+                                else
+                                    window.location = "login.php"
 
                             },
                             "text");

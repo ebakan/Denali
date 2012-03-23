@@ -2,9 +2,7 @@
 require("config.php");
 require("LdapUser.php");
 
-require_once("cookie.php");
-$cookie = new cookie();
-if(!$cookie->verifyCookie())
+if(!isset($_POST['name']) || !isset($_POST['pass']))
     header("Location: login.php");
 
 $name = $_POST['name'];
@@ -29,7 +27,8 @@ $events = "";
 
 
 if(!($id = $ldap->auth($name, $pass)))
-    header("Location: login.php?error=0");
+//    if(!$cookie->verifyCookie())
+        header("Location: login.php?error=0");
 else{
     $hashkey = $name;
     $hashkey .= SALT;
@@ -48,6 +47,7 @@ else{
     $events = $system->getStudentRegistrations($id);
 
     if(!$events) {
+        if(isset($_SESSION['uid']))
         header("Location: reg.php");
     }
 }

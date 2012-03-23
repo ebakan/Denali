@@ -5,7 +5,11 @@ $cookie = new cookie();
 
 //If there are no get variables and there is a cookie - reroute to reg
 if($cookie->verifyCookie() && !(isset($_GET['error'])) && !(isset($_GET['success'])))
-    header("Location: reg.php");
+{
+    session_start();
+    if(isset($_SESSION['uid']))
+        header("Location: reg.php");
+    }
 
 //If the error is 1 or the user is successfull - remove cokie
 if(isset($_GET['error']) || isset($_GET['success']))

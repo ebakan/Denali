@@ -15,8 +15,10 @@ else
     echo mysql_error();
     */
 
-    if($system->registerStudent($id, 4, 5, 6, 7, 'NOW()'))
-        echo "YAY";
-        else echo mysql_error();
+    if($system->registerStudent($id, $ev1, $ev2, $ev3, $ev4, 'NOW()'))
+        echo 1;
+    else 
+        echo 0;
+
 
 ?>

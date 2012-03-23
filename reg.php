@@ -21,6 +21,16 @@ $id = $_SESSION['uid'];
 
 $data = $system->getValidEvents($id);
 
+    
+    $events = $system->getStudentRegistrations($id);
+
+    if($events) {
+        header("Location: reviewEvents.php");
+    }
+
+    if(!isset($_SESSION['uid']))
+        header("Location: login.php");
+
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";
 

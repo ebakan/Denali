@@ -61,6 +61,26 @@
     var fourthTimeSlotTitles = getTitles(4);
     //for(var x = 0; x < firstTimeSlotTitles.length; x++) document.writeln(firstTimeSlotTitles[x]);
 
+        function fillScottie()
+        {
+            if(scottie1)
+            {
+               $("#id3").html(data[3][10].id);
+               $("#title3").html(data[3][10].title);
+               $("#speaker3").html(data[3][10].speaker);
+               $("#description3").html(data[3][10].description);
+               $("#timeslot3").html(data[3][10].timeslot);
+               $("#length3").html(data[3][10].length);
+               $("#location3").html(data[3][10].location);
+               $("#capacity3").html(data[3][10].capacity);
+               $("#email3").html(data[3][10].email);
+               $("#count3").html(data[3][10].count);
+
+               
+
+            }
+
+        }
 
        /* $.each(titles, function(key, value) {
             $('#mySelect').append(
