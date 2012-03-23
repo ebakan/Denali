@@ -44,7 +44,13 @@
                    timeslots[key] = data[x][y].timeslot;  
                    lengths[key] = data[x][y].length;  
                    locations[key] = data[x][y].location;  
-                   capacities[key] = data[x][y].capacity;  
+<<<<<<< HEAD
+=======
+                   if(data[x][y].capacity == -1)
+                       capacities[key] = "Infinite";  
+                    else
+                       capacities[key] = data[x][y].capacity;  
+>>>>>>> Infinite capacities added.
                    emails[key] = data[x][y].email;  
                    counts[key] = data[x][y].count;  
                     
