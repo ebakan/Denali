@@ -98,7 +98,7 @@ class system
         $id = mysql_escape_string($id);
         $outArray = array();
         for($i = 1; $i <= 4; $i++) {
-            $result = $this->getValidEventsByTimeslot($i);
+            $result = $this->getValidEventsByTimeslot($id, $i);
             if(!$result) {
                 return false;
             }
