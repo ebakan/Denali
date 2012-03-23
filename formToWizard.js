@@ -168,28 +168,44 @@
               case "stepDesc0":
                 var count = $("#count1").text();
                 var capacity = $("#capacity1").text();
-                $("#spots1").text((capacity-count) + " / " + capacity);
+                if(capacity=="Infinite") {
+                    $("#spots1").text(capacity + " / " + capacity);
+                } else {
+                    $("#spots1").text((capacity-count) + " / " + capacity);
+                }
              if($("#mySelect").val() != null)
                 $("#spots1").show();
               break;
               case "stepDesc1":
                 var count = $("#count2").text();
                 var capacity = $("#capacity2").text();
-                $("#spots2").text((capacity-count) + " / " + capacity);
+                if(capacity=="Infinite") {
+                    $("#spots2").text(capacity + " / " + capacity);
+                } else {
+                    $("#spots2").text((capacity-count) + " / " + capacity);
+                }
              if($("#mySelect").val() != null)
                 $("#spots2").show();
               break;
               case "stepDesc2":
                 var count = $("#count3").text();
                 var capacity = $("#capacity3").text();
-                $("#spots3").text((capacity-count) + " / " + capacity);
+                if(capacity=="Infinite") {
+                    $("#spots3").text(capacity + " / " + capacity);
+                } else {
+                    $("#spots3").text((capacity-count) + " / " + capacity);
+                }
              if($("#mySelect").val() != null)
                 $("#spots3").show();
               break;
               case "stepDesc3":
                 var count = $("#count4").text();
                 var capacity = $("#capacity4").text();
-                $("#spots4").text((capacity-count) + " / " + capacity);
+                if(capacity=="Infinite") {
+                    $("#spots2").text(capacity + " / " + capacity);
+                } else {
+                    $("#spots2").text((capacity-count) + " / " + capacity);
+                }
              if($("#mySelect").val() != null)
                 $("#spots4").show();
               break;
