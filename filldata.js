@@ -44,7 +44,7 @@
                    timeslots[key] = data[x][y].timeslot;  
                    lengths[key] = data[x][y].length;  
                    locations[key] = data[x][y].location;  
-                   titles[capacities] = data[x][y].capacity;  
+                   capacities[key] = data[x][y].capacity;  
                    emails[key] = data[x][y].email;  
                    counts[key] = data[x][y].count;  
                     
