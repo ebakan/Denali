@@ -1,21 +1,42 @@
 <?php
 require("config.php");
+require("LdapUser.php");
 
 
 $name = $_POST['name'];
-$id = $_POST['id'];
+$pass = $_POST['pass'];
 db_login();
 $system = new system();
 
 //Screens html/sql injections
 $name = htmlentities($name);
 $name = mysql_real_escape_string($name);
-$id = htmlentities($id);
-$id = mysql_real_escape_string($id);
+$pass = htmlentities($pass);
+$pass = mysql_real_escape_string($pass);
 
 $ldap = new LdapUser();
 
-echo $ldap->auth($name, $id);
+
+if(!($id = $ldap->auth($name, $pass)))
+    header("Location: login.php?error=0");
+else{
+    $hashkey = $name;
+    $hashkey .= SALT;
+
+    //Creates cookie
+    require_once("cookie.php");
+    $cookie = new cookie();
+    $cookie->setCookie( $hashkey, false);
+    
+    //Session data to get username and id
+    session_start();
+    $_SESSION['uname'] = $name;
+    $_SESSION['upass'] = $pass;
+    $_SESSION['uid'] = $id;
+
+    header("Location: reg.php");
+
+}
 
 /*if(test_login($name, $id))
 {

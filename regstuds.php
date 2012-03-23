@@ -15,6 +15,8 @@ else
     echo mysql_error();
     */
 
-    var_dump($system->registerStudent(212019, 4, 5, 6, 7, 'NOW()'));
+    if($system->registerStudent(212099, 4, 5, 6, 7, 'NOW()'))
+        echo "YAY";
+        else echo mysql_error();
 
 ?>

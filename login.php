@@ -5,7 +5,7 @@ $cookie = new cookie();
 
 //If there are no get variables and there is a cookie - reroute to reg
 if($cookie->verifyCookie() && !(isset($_GET['error'])) && !(isset($_GET['success'])))
-    header("Location: registration.php");
+    header("Location: reg.php");
 
 //If the error is 1 or the user is successfull - remove cokie
 if(isset($_GET['error']) || isset($_GET['success']))
@@ -44,7 +44,7 @@ br {clear:both;}
 <form class="form" method="post" action="loginProc.php">
 <div class="label">Name: </div><div class="input"><input name="name" type="text" id="name" size="15" maxlength="40" /></div>
 <br />
-<div class="label">Password:  </div><div class="input"><input name="id" type="password" id="id" size="15" maxlength="15" /></div>
+<div class="label">Password:  </div><div class="input"><input name="pass" type="password" id="id" size="15" maxlength="15" /></div>
 <br />
 <div class="error" id="spacer">
 <?php

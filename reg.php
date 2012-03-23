@@ -9,15 +9,17 @@ else
     echo "Cookie fail";
     //header("Location: login.html");
 */
-//if(!$cookie->verifyCookie())
-  //  header("Location: login.php");
+if(!$cookie->verifyCookie())
+    header("Location: login.php");
 
 
 $system = new system();
-$data = $system->getValidEvents();
 session_start();
 $name = $_SESSION['uname'];
+$pass = $_SESSION['upass'];
 $id = $_SESSION['uid'];
+
+$data = $system->getValidEvents($id);
 
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";
@@ -49,7 +51,14 @@ else if(isset($_POST['Submit']))
 <title>Registration</title>
 
     <style type="text/css">
-        body { background-color:#0033CC; font-family:Lucida Sans, Arial, Helvetica, Sans-Serif; font-size:13px; margin:20px;}
+        body {
+        /*background-color:#0033CC; */
+        font-family:Lucida Sans, Arial, Helvetica, Sans-Serif; 
+        font-size:13px; 
+        margin:20px;
+        background-image:url('vertical_cloth.png');
+        background-repeat:repeat;
+        }
         #main { position: absolute; width:960px; margin: 0px auto; border:solid 1px #b2b3b5; -moz-border-radius:10px; padding:20px; background-color:#f6f6f6;}
         #header { text-align:center; border-bottom:solid 1px #b2b3b5; margin: 0 0 20px 0; }
         #header img{ margin-right: 51px; }
@@ -62,7 +71,7 @@ else if(isset($_POST['Submit']))
         .prev:hover, .next:hover { background-color:#000; text-decoration:none;}
         .prev { float:left;}
         .next { float:right;}
-        #steps { float: right; margin-right: 150px; list-style:none; overflow:hidden; padding:0px;}
+        #steps { float: right; margin-right: 97px; list-style:none; overflow:hidden; padding:0px;}
         #steps li {font-size:24px; float:left; padding:10px; color:#b0b1b3;}
         #steps li span {font-size:11px; display:block;}
         #steps li.current { color:#000;}
@@ -70,7 +79,7 @@ else if(isset($_POST['Submit']))
         #makeWizard:hover { background-color:#000;}
 
         /*mine*/
-        h2#reg { margin-top:50px; text-align: center;}
+        h2#reg { color: white; margin-top:14px; text-align: center;}
 #mySelect { margin-left:95px; margin-top:150px; width:300px; border-style:solid; }
         form { border-style:solid; background-color: white; }
 #message_display { margin-top: 30px;  }
@@ -100,7 +109,7 @@ else if(isset($_POST['Submit']))
 
 <div class="main" >
         <div id="header">
-            <img src="http://www.adobe.com/showcase/casestudies/bellarmine/cover.jpg" alt="Bellarmine Immigration Summit" />
+            <img src="bell.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
             <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
         </div>
         <form name="myform" id="SignupForm" action="">
@@ -172,7 +181,7 @@ else if(isset($_POST['Submit']))
 </div>
 
     <select id="mySelect" size="15"></select>
-    <div id="spacer"></div>
+   <!-- <div id="spacer"></div> -->
     <div id="footer"></div>
 
     <!--
@@ -181,60 +190,11 @@ else if(isset($_POST['Submit']))
     -->
     <script type="text/javascript">
     var data = $.parseJSON(<?php print json_encode(json_encode($data)); ?>);
+    var uid = <?php echo $_SESSION['uid']; ?>;
     </script>
 
     <script type="text/javascript" src="filldata.js"></script>
     <script type="text/javascript">
-        /**
-         * Checks to see if event is filled up. Puts events in hidden inputs to be submitted.
-         */
-        $("#SaveAccount").click(function() {
-            var evid1 = $('#id1').text();
-            var evid2 = $('#id2').text();
-            var evid3 = $('#id3').text();
-            var evid4 = $('#id4').text();
-            var info = "ev1=" + evid1 + "&ev2="+evid2+"&ev3="+evid3+"&ev4="+evid4;
-           $.get(
-               "ev.php",
-               info,
-               function(data) {
-                   var errs = data.split(',');
-                   if(data != "") {
-                       var first = errs[0]-1;
-
-                       alert("Sorry! One or more of the events ran out of space. Please choose another.");
-                       for(var x = 0; x < errs.length; x ++)
-                       {
-                            $("#step" + (errs[x]-1) + " fieldset div").html('');
-                       }
-
-                        $(".next").hide();
-                        $(submmitButtonName).hide();
-
-                       $("#step0, #step1, #step2, #step3").hide();
-                       $("#step" + first).show();
-                       selectStep(first);
-                   } else {
-                       $.get(
-                            "regstuds.php",
-                          //TEST STILL  info + "&id=" + <?php echo $_SESSION['uid'] ?>,
-                          info,
-                            function(data) {
-                                alert(data);
-
-                            },
-                            "text");
-                   }
-
-               },
-               "text"
-           );
-           document.myform.eid1.value = evid1; 
-           document.myform.eid2.value = evid2; 
-           document.myform.eid3.value = evid3; 
-           document.myform.eid4.value = evid4;; 
-        
-        });
 
     </script>
 
