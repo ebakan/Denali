@@ -20,17 +20,18 @@ body {
     border-bottom:solid 1px #b2b3b5;
     margin: 0 0 20px 0;
 }
-#header img{
-    margin-right: 51px;
-}
 #SignupForm {
     position: absolute;
-    top: 360px;
-    right: 200px;
+    right: 10%;
+    width: 35%;
+    min-width: 300px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -moz-box-shadow: 0px 0px 30px 5px #999;
+    -webkit-box-shadow: 0px 0px 30px 5px #999;
 }
 fieldset {
     border:none;
-    width:320px;
 }
 legend {
     font-size:18px;
@@ -65,11 +66,12 @@ input[type=text], input[type=password] {
     float:right;
 }
 #steps {
-    float: right;
-    margin-right: 150px;
     list-style:none;
     overflow:hidden;
     padding:0px;
+    width: 520px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #steps li {
     font-size:24px;
@@ -100,15 +102,15 @@ h2#reg {
     text-align: center;
 }
 #mySelect {
-    margin-left: 95px;
-    margin-top: 150px;
-    width: 300px;
+    margin-left: 10%;
+    width: 35%;
     border-style: solid;
     padding: 25px;
     -moz-border-radius: 15px;
     border-radius: 15px;
     -moz-box-shadow: 0px 0px 30px 5px #999;
     -webkit-box-shadow: 0px 0px 30px 5px #999;
+    min-width: 300px;
 }
 form {
     border-style:solid;
@@ -118,7 +120,10 @@ form {
     margin-top: 30px;
 }
 #lo {
-    float:right;
+    text-align: right;
+    position: absolute;
+    right: 10%;
+    top: 10px;
 }
 #footer {
     height: 250px;
