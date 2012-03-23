@@ -2,6 +2,10 @@
 require("config.php");
 require("LdapUser.php");
 
+require_once("cookie.php");
+$cookie = new cookie();
+if(!$cookie->verifyCookie())
+    header("Location: login.php");
 
 $name = $_POST['name'];
 $pass = $_POST['pass'];

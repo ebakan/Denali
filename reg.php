@@ -24,19 +24,6 @@ $data = $system->getValidEvents($id);
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";
 
-//AFTER SUBMISSION
-else if(isset($_POST['Submit']))
-    {
-        $eid1 = $_POST['eid1']; 
-        $eid2 = $_POST['eid2']; 
-        $eid3 = $_POST['eid3']; 
-        $eid4 = $_POST['eid4']; 
-        echo $eid1." ".$eid2." ".$eid3." ".$eid4;
-
-
-
-
-    }
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
