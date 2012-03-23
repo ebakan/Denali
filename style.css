@@ -125,6 +125,7 @@ form {
     position: absolute;
     right: 10%;
     top: 10px;
+    color: #999;
 }
 #footer {
     height: 250px;
