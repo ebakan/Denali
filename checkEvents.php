@@ -33,38 +33,38 @@ $system = new system();
                             $("#data").append("<p>Uh oh, that student hasn't registered yet.</p>");
                         } else {
                             $("#data").append('<div class="ev evtop"><h2>First Event:</h2> \
-                <div class="label">Title </div><div id="title51" style="text-align:center">'+data[1].title+'</div><br /> \
-                <div class="label">Speaker </div><div id="speaker51" style="text-align:center">'+data[1].speaker+'</div><br /> \
-                <div class="label">Description </div><div id="description51" style="text-align:center">'+data[1].description+'</div><br /> \
-                <div class="label">Length (Mins)</div><div id="description51" style="text-align:center">'+data[1].length+'</div><br /> \
-                <div class="label">Room </div><div id="location51" style="text-align:center">'+data[1].location+'</div><br /> \
-                <div class="label">Email </div><div id="location51" style="text-align:center">'+data[1].email+'</div><br /> \
-            </div> \
-            <div class="ev evtop"><h2>Second Event:</h2> \
-                <div class="label">Title </div><div id="title52" style="text-align:center">'+data[2].title+'</div><br /> \
-                <div class="label">Speaker </div><div id="speaker52" style="text-align:center">'+data[2].speaker+'</div><br /> \
-                <div class="label">Description </div><div id="description52" style="text-align:center">'+data[2].description+'</div><br /> \
-                <div class="label">Length (Mins)</div><div id="description52" style="text-align:center">'+data[2].length+'</div><br /> \
-                <div class="label">Room </div><div id="location52" style="text-align:center">'+data[2].location+'</div><br /> \
-                <div class="label">Email </div><div id="location52" style="text-align:center">'+data[2].email+'</div><br /> \
-            </div> \
-            <div class="ev evtop"><h2>Third Event:</h2> \
-                <div class="label">Title </div><div id="title53" style="text-align:center">'+data[3].title+'</div><br /> \
-                <div class="label">Speaker </div><div id="speaker53" style="text-align:center">'+data[3].speaker+'</div><br /> \
-                <div class="label">Description </div><div id="description53" style="text-align:center">'+data[3].description+'</div><br /> \
-                <div class="label">Length (Mins)</div><div id="description53" style="text-align:center">'+data[3].length+'</div><br /> \
-                <div class="label">Room </div><div id="location53" style="text-align:center">'+data[3].location+'</div><br /> \
-                <div class="label">Email </div><div id="location53" style="text-align:center">'+data[3].email+'</div><br /> \
-            </div> \
-            <div class="ev"><h2>Fourth Event:</h2> \
-                <div class="label">Title </div><div id="title54" style="text-align:center">'+data[4].title+'</div><br /> \
-                <div class="label">Speaker </div><div id="speaker54" style="text-align:center">'+data[4].speaker+'</div><br /> \
-                <div class="label">Description </div><div id="description54" style="text-align:center">'+data[4].description+'</div><br /> \
-                <div class="label">Length (Mins)</div><div id="description54" style="text-align:center">'+data[4].length+'</div><br /> \
-                <div class="label">Room </div><div id="location54" style="text-align:center">'+data[4].location+'</div><br /> \
-                <div class="label">Email </div><div id="location54" style="text-align:center">'+data[4].email+'</div><br /> \
-            </div> \
-            </fieldset>'
+                                                   <div class="label">Title </div><div id="title51" style="text-align:center">'+data[1].title+'</div><br /> \
+                                                   <div class="label">Speaker </div><div id="speaker51" style="text-align:center">'+data[1].speaker+'</div><br /> \
+                                                   <div class="label">Description </div><div id="description51" style="text-align:center">'+data[1].description+'</div><br /> \
+                                                   <div class="label">Length (Mins)</div><div id="description51" style="text-align:center">'+data[1].length+'</div><br /> \
+                                                   <div class="label">Room </div><div id="location51" style="text-align:center">'+data[1].location+'</div><br /> \
+                                                   <div class="label">Email </div><div id="location51" style="text-align:center">'+data[1].email+'</div><br /> \
+                                               </div> \
+                                               <div class="ev evtop"><h2>Second Event:</h2> \
+                                                   <div class="label">Title </div><div id="title52" style="text-align:center">'+data[2].title+'</div><br /> \
+                                                   <div class="label">Speaker </div><div id="speaker52" style="text-align:center">'+data[2].speaker+'</div><br /> \
+                                                   <div class="label">Description </div><div id="description52" style="text-align:center">'+data[2].description+'</div><br /> \
+                                                   <div class="label">Length (Mins)</div><div id="description52" style="text-align:center">'+data[2].length+'</div><br /> \
+                                                   <div class="label">Room </div><div id="location52" style="text-align:center">'+data[2].location+'</div><br /> \
+                                                   <div class="label">Email </div><div id="location52" style="text-align:center">'+data[2].email+'</div><br /> \
+                                               </div> \
+                                               <div class="ev evtop"><h2>Third Event:</h2> \
+                                                   <div class="label">Title </div><div id="title53" style="text-align:center">'+data[3].title+'</div><br /> \
+                                                   <div class="label">Speaker </div><div id="speaker53" style="text-align:center">'+data[3].speaker+'</div><br /> \
+                                                   <div class="label">Description </div><div id="description53" style="text-align:center">'+data[3].description+'</div><br /> \
+                                                   <div class="label">Length (Mins)</div><div id="description53" style="text-align:center">'+data[3].length+'</div><br /> \
+                                                   <div class="label">Room </div><div id="location53" style="text-align:center">'+data[3].location+'</div><br /> \
+                                                   <div class="label">Email </div><div id="location53" style="text-align:center">'+data[3].email+'</div><br /> \
+                                               </div> \
+                                               <div class="ev"><h2>Fourth Event:</h2> \
+                                                   <div class="label">Title </div><div id="title54" style="text-align:center">'+data[4].title+'</div><br /> \
+                                                   <div class="label">Speaker </div><div id="speaker54" style="text-align:center">'+data[4].speaker+'</div><br /> \
+                                                   <div class="label">Description </div><div id="description54" style="text-align:center">'+data[4].description+'</div><br /> \
+                                                   <div class="label">Length (Mins)</div><div id="description54" style="text-align:center">'+data[4].length+'</div><br /> \
+                                                   <div class="label">Room </div><div id="location54" style="text-align:center">'+data[4].location+'</div><br /> \
+                                                   <div class="label">Email </div><div id="location54" style="text-align:center">'+data[4].email+'</div><br /> \
+                                               </div> \
+                                               </fieldset>'
                         );
                         }
                     });
@@ -82,7 +82,7 @@ $system = new system();
             $.get("info.php","type=event&id="+val, function(data) {
                 data = $.parseJSON(data);
                 var num = data.length;
-                if(!data) {
+                if(data<1) {
                     $("#data").append("<p>No signups for this event yet!</p>");
                 } else {
                    outVal="<p>"+num+" Total Signups</p><table id='datalist'><tr><th>Student ID</th><th>Name</th></tr>";
@@ -114,7 +114,7 @@ html{text-align:center;}
 <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
 </div>
 <div id="review">
-<h2>Check out who's going to an event!.</h2>
+<h2>Check out who's going to an event!</h2>
 <select id="eventselect">
 <?php
 $events = $system->getAllEvents();
@@ -125,7 +125,7 @@ for($i=1; $i<=4; $i++) {
 }
 ?>
 </select>
-<h2>Check out what events people are going to!.</h2>
+<h2>Check out what events people are going to!</h2>
 <input name="people" type="text" id="peopleinput" title="Student ID Number">
 <input type="submit" id="peoplesubmit" value="Submit" />
 <div id="data">
