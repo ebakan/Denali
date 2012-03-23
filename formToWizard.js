@@ -202,9 +202,9 @@
                 var count = $("#count4").text();
                 var capacity = $("#capacity4").text();
                 if(capacity=="Infinite") {
-                    $("#spots2").text(capacity + " / " + capacity);
+                    $("#spots4").text(capacity + " / " + capacity);
                 } else {
-                    $("#spots2").text((capacity-count) + " / " + capacity);
+                    $("#spots4").text((capacity-count) + " / " + capacity);
                 }
              if($("#mySelect").val() != null)
                 $("#spots4").show();
