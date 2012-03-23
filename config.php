@@ -98,12 +98,6 @@ class system
         $id = mysql_escape_string($id);
         $outArray = array();
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        for ($i = 1; $i <= 4; $i++) {
-            $result = $this->getValidEventsByTimeslot($id, $i);
-            if (!$result) {
->>>>>>> Stashed changes
-=======
         for($i = 1; $i <= 4; $i++) {
             $result = $this->getValidEventsByTimeslot($id, $i);
             if(!$result) {
