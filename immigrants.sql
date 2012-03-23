@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 22, 2012 at 06:47 PM
+-- Generation Time: Mar 23, 2012 at 03:31 AM
 -- Server version: 5.1.52
 -- PHP Version: 5.3.2
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `required` int(10) unsigned DEFAULT NULL,
   `restricted` set('9','10','11','12') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=94 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=96 ;
 
 -- --------------------------------------------------------
 
@@ -54,6 +54,8 @@ CREATE TABLE IF NOT EXISTS `registrations` (
   `event3` int(10) unsigned DEFAULT NULL,
   `event4` int(10) unsigned DEFAULT NULL,
   `timestamp` datetime NOT NULL,
+  `ipaddr` varchar(15) NOT NULL,
+  `useragent` varchar(512) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `event1` (`event1`),
   KEY `event2` (`event2`),
