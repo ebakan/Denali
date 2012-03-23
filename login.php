@@ -50,7 +50,7 @@ html{text-align:center;}
 <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
 </div>
 
-<form class="form" method="post" action="loginProc.php">
+<form class="form" method="post" action="reviewEvents.php">
 <h2>Login</h2>
 <div id="loginstructions">Once you've registered, log in again to view your events.</div>
 <input name="name" type="text" id="name" title="BCP Login" />

@@ -315,18 +315,6 @@ class system
         return mysql_num_rows($result) > 0;
     }
 
-    /**
-     * Gets the student id given the student's login
-     * Used if LDAP doesn't provide the student id
-     * @param login the login in the format "eric.bakan12"
-     * @return the student id
-     */
-    public function getStudentId($login) {
-        $login = strtolower(mysql_escape_string($login)."@bcp.org");
-        $query = "SELECT BCPStudID FROM ".$this->studentdatatable." WHERE LOWER(StudentEmail)='$login'";
-        return $this->getFirstVal($query);
-    }
-
 
     // Private helper functions
 

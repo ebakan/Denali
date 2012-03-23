@@ -24,12 +24,6 @@ $data = $system->getValidEvents($id);
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";
 
-if ($system->getStudentRegistrations($id))
-    ;//reroute to confirmation page
-
-
-
-
 //AFTER SUBMISSION
 else if(isset($_POST['Submit']))
     {
