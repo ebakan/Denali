@@ -76,26 +76,26 @@ else if(isset($_POST['Submit']))
                 <div class="label">Title </div><div id="title1" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker1" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description1" style="text-align:center"></div><br />
-                <div id="timeslot1" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length1" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location1" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity1" style="text-align:center; visibility:hidden;"></div>
-                <div class="label">Email </div><div id="email1" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Count </div><div id="count1" style="text-align:center;visbility: hidden;"></div>
-                <div class="label">Spots Available </div><div id="spots1" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location1" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email1" style="text-align:center"></div><br />
+                <div class="label">Spots Available </div><div id="spots1"  style="text-align:center"></div><br />
+                <div class="hidden" id="timeslot1" style="visibility:hidden;"></div>
+                <div class="hidden" id="capacity1" style="visibility: hidden;"></div>
+                <div class="hidden" id="count1" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
-                <div id="id1" style="visibility:hidden"></div>
+                <div id="id2" style="visibility:hidden"></div>
                 <div class="label">Title </div><div id="title2" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker2" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description2" style="text-align:center"></div><br />
-                <div id="timeslot2" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length2" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location2" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity2" style="text-align:center; visibility: hidden;"></div>
-                <div class="label">Email </div><div id="email2" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Count </div><div id="count2" style="text-align:center; visibility:hidden;"></div>
-                <div class="label">Spots Available </div><div id="spots2" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location2" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email2" style="text-align:center"></div><br />
+                <div class="label">Spots Available </div><div id="spots2"  style="text-align:center"></div><br />
+                <div class="hidden" id="timeslot2" style="visibility:hidden;"></div>
+                <div class="hidden" id="capacity2" style="visibility: hidden;"></div>
+                <div class="hidden" id="count2" style="visibility:hidden;"></div>
 
             </fieldset>
             <fieldset>
@@ -103,44 +103,55 @@ else if(isset($_POST['Submit']))
                 <div class="label">Title </div><div id="title3" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker3" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description3" style="text-align:center"></div><br />
-                <div id="timeslot3" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length3" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location3" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity3" style="text-align:center; visbility:hidden;"></div>
-                <div class="label">Email </div><div id="email3" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Count </div><div id="count3" style="text-align:center; visiblity:hidden;"></div>
-                <div class="label">Spots Available </div><div id="spots3" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location3" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email3" style="text-align:center"></div><br />
+                <div class="label">Spots Available </div><div id="spots3"  style="text-align:center"></div><br />
+                <div class="hidden" id="timeslot3" style="visibility:hidden;"></div>
+                <div class="hidden" id="capacity3" style="visibility: hidden;"></div>
+                <div class="hidden" id="count3" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
                 <div id="id4" style="visibility:hidden"></div>
                 <div class="label">Title </div><div id="title4" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker4" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description4" style="text-align:center"></div><br />
-                <div id="timeslot4" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length4" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location4" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity4" style="text-align:center; visibility:hidden;"></div>
-                <div class="label">Email </div><div id="email4" style="text-align:center"></div>
-                <div class="label" style="visibility:hidden">Count </div><div id="count4" style="text-align:center; visibility:hidden;"></div>
-                <div class="label">Spots Available </div><div id="spots4" style="text-align:center"></div><br />
+                <div class="label">Room </div><div id="location4" style="text-align:center"></div><br />
+                <div class="label">Email </div><div id="email4" style="text-align:center"></div><br />
+                <div class="label">Spots Available </div><div id="spots4"  style="text-align:center"></div><br />
+                <div class="hidden" id="timeslot4" style="visibility:hidden;"></div>
+                <div class="hidden" id="capacity4" style="visibility: hidden;"></div>
+                <div class="hidden" id="count4" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
-                <div class="ev"> First Event:<br /> <br />
+                <div class="ev"> First Event</div>
+                <br /> 
+                <div class="labelc">
                     <div class="label">Title </div><div id="title51" style="text-align:center"></div><br />
                     <div class="label">Speaker </div><div id="speaker51" style="text-align:center"></div><br />
                     <div class="label">Room </div><div id="location51" style="text-align:center"></div><br />
                 </div>
-                <div class="ev"> Second Event:<br /> <br />
+                <br />
+                <div class="ev"> Second Event </div> 
+                <br /> 
+                <div class="labelc">
                     <div class="label">Title </div><div id="title52" style="text-align:center"></div><br />
                     <div class="label">Speaker </div><div id="speaker52" style="text-align:center"></div><br />
                     <div class="label">Room </div><div id="location52" style="text-align:center"></div><br />
                 </div>
-                <div class="ev"> Third Event: <br /><br />
+                <br />
+                <div class="ev"> Third Event </div>
+                <br /> 
+                <div class="labelc">
                     <div class="label">Title </div><div id="title53" style="text-align:center"></div><br />
                     <div class="label">Speaker </div><div id="speaker53" style="text-align:center"></div><br />
                     <div class="label">Room </div><div id="location53" style="text-align:center"></div><br />
                 </div>
-                <div class="ev"> Fourth Event: <br /><br />
+                <br />
+                <div class="ev"> Fourth Event </div>
+                <br /> <br />
+                <div class="labelc">
                     <div class="label">Title </div><div id="title54" style="text-align:center"></div><br />
                     <div class="label">Speaker </div><div id="speaker54" style="text-align:center"></div><br />
                     <div class="label">Room </div><div id="location54" style="text-align:center"></div><br />
