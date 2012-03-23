@@ -7,7 +7,6 @@ if(!isset($_POST['name']) || !isset($_POST['pass']))
 
 $name = $_POST['name'];
 $pass = $_POST['pass'];
-db_login();
 $system = new system();
 
 //Screens html/sql injections

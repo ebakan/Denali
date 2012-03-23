@@ -1,6 +1,5 @@
 <?php
 require("config.php");
-db_login();
 
 $system = new system();
 $errs = "";

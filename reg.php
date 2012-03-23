@@ -1,7 +1,6 @@
 <?php
 require_once("cookie.php");
 require_once("config.php");
-db_login();
 $cookie = new cookie();
 /*if($cookie->verifyCookie())
     echo "Cookie verified";
