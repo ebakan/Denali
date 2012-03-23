@@ -97,9 +97,9 @@ class system
     public function getValidEvents($id) {
         $id = mysql_escape_string($id);
         $outArray = array();
-        for($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $result = $this->getValidEventsByTimeslot($id, $i);
-            if(!$result) {
+            if (!$result) {
                 return false;
             }
             $outArray[$i] = $result;
@@ -140,18 +140,18 @@ class system
     public function getStudentRegistrations($idnum) {
         $idnum = mysql_escape_string($idnum);
         $outArray = array();
-        for($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $query = "SELECT * FROM ".$this->eventstable." WHERE id IN ".
                 "(SELECT event$i FROM ".$this->registrationstable." WHERE id=$idnum)";
             $result = mysql_query($query);
-            if(!$result) {
+            if (!$result) {
                 return false;
             }
-            if(mysql_num_rows($result)) {
+            if (mysql_num_rows($result)) {
                 $outArray[$i] = mysql_fetch_assoc($result);
             }
         }
-        if(count($outArray) == 0) {
+        if (count($outArray) == 0) {
             return false;
         }
         return $outArray;
@@ -173,25 +173,25 @@ class system
     public function registerStudent($idnum, $eid1, $eid2, $eid3, $eid4) {
         $idnum = mysql_escape_string($idnum);
 
-        if(!$eid1) {
+        if (!$eid1) {
             $eid1 = 'NULL';
         } else {
             $eid1 = mysql_escape_string($eid1);
         }
 
-        if(!$eid2) {
+        if (!$eid2) {
             $eid2 = 'NULL';
         } else {
             $eid2 = mysql_escape_string($eid2);
         }
 
-        if(!$eid3) {
+        if (!$eid3) {
             $eid4 = 'NULL';
         } else {
             $eid3 = mysql_escape_string($eid3);
         }
 
-        if(!$eid4) {
+        if (!$eid4) {
             $eid4 = 'NULL';
         } else {
             $eid4 = mysql_escape_string($eid4);
@@ -216,9 +216,9 @@ class system
      */
     public function getAllEvents() {
         $outArray = array();
-        for($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $result = $this->getAllEventsByTimeslot($i);
-            if(!$result) {
+            if (!$result) {
                 return false;
             }
             $outArray[$i] = $result;
@@ -264,7 +264,7 @@ class system
      */
     public function isEventValid($eid) {
         $eid = mysql_escape_string($eid);
-        if(strlen($eid)<1) {
+        if (strlen($eid)<1) {
             return true;
         }
         $events = $this->eventstable;
@@ -296,12 +296,13 @@ class system
       * @return 2D array of rows, each of which contains an associative array or false if unsuccessful
       */
     private function query2D($query) {
-        $result=mysql_query($query,$this->connection);
-        if(!$result)
+        $result = mysql_query($query ,$this->connection);
+        if (!$result) {
             return false;
+        }
         $outArray=array();
-        while($row=mysql_fetch_assoc($result)) {
-            $outArray[]=$row;
+        while ($row = mysql_fetch_assoc($result)) {
+            $outArray[] = $row;
         }
         return $outArray;
     }
@@ -311,10 +312,11 @@ class system
       * @return the first value of the first row of the query
       */
     public function getFirstVal($query) {
-        $result=mysql_query($query,$this->connection);
-        if(!$result)
+        $result = mysql_query($query, $this->connection);
+        if (!$result) {
             return false;
-        $arr=mysql_fetch_array($result);
+        }
+        $arr = mysql_fetch_array($result);
         return $arr[0];
     }
 
