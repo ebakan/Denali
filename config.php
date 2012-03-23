@@ -87,13 +87,15 @@ class system
     /**
      * Get all the current events which aren't already full
      * Would be used when showing a student which slots he can sign up for
+     * @param id the student id
      * @return a 3D array of timeslot -> 
      *                       array of available events for the timeslot ->
      *                       associative array of database data for each event plus
      *                       the number of people signed up for it
      *         or false on error
      */
-    public function getValidEvents() {
+    public function getValidEvents($id) {
+        $id = mysql_escape_string($id);
         $outArray = array();
         for($i = 1; $i <= 4; $i++) {
             $result = $this->getValidEventsByTimeslot($i);
@@ -108,12 +110,15 @@ class system
     /**
      * Get all the current events for a timeslot which aren't already full
      * Would be used when asking a student to change a single timeslot registration
+     * @param id the student id
+     * @param timeslot the timeslot to list events for
      * @return a 2D array of available events for the timeslot ->
      *                       associative array of database data for each event plus
      *                       the number of people signed up for it
      *         or false on error
      */
-    public function getValidEventsByTimeslot($timeslot) {
+    public function getValidEventsByTimeslot($id, $timeslot) {
+        $id = mysql_escape_string($id);
         $timeslot = mysql_escape_string($timeslot);
         $events = $this->eventstable;
         $query = "SELECT *, ".
