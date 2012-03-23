@@ -79,7 +79,7 @@ input[type=text], input[type=password] {
     font-size:24px;
     float:left;
     padding:10px;
-    color:#0033CC;
+    color:#b0b1b3;
 }
 #steps li span {font-size:11px
     display:block;
@@ -102,6 +102,7 @@ input[type=text], input[type=password] {
 h2#reg {
     margin-top:50px;
     text-align: center;
+    color: #b0b1b3;
 }
 #mySelect {
     margin-left: 10%;
