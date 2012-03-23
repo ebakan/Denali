@@ -19,6 +19,15 @@ if(isset($_GET['error']) || isset($_GET['success']))
 <head>
 <title>Login Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src='jquery.hint-with-password.js' type='text/javascript'></script>
+<script type="text/javascript" charset="utf-8">
+    $(function(){ 
+        $('input[title!=""]').hint();
+    });
+</script>
+
 <style type="text/css">
 <?php
 
@@ -30,22 +39,22 @@ if(isset($_GET['error'])){
 echo ".error { color:green;}";
 ?>
 html{text-align:center;}
-.form{margin-left:auto; margin-right:auto; width:300px;}
-.label{float:left; width:120px; text-align:left !important;}
-.input{float:left; width:120px;}
-#spacer{margin-top:10px;}
-br {clear:both;}
 
 </style>
 </head>
 
 <body>
-<h2>Login</h2>
+<h2 id="reg">Immigration Summit Registration</h2>
+<div id="header">
+<img src="bell.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
+<span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
+</div>
+
 <form class="form" method="post" action="loginProc.php">
-<div class="label">Name: </div><div class="input"><input name="name" type="text" id="name" size="15" maxlength="40" /></div>
-<br />
-<div class="label">Password:  </div><div class="input"><input name="pass" type="password" id="id" size="15" maxlength="15" /></div>
-<br />
+<h2>Login</h2>
+<div id="loginstructions">Once you've registered, log in again to view your events.</div>
+<input name="name" type="text" id="name" title="BCP Login" />
+<input name="pass" type="password" id="id" title="Password" />
 <div class="error" id="spacer">
 <?php
 //Error handling
