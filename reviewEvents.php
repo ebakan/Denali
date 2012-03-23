@@ -14,6 +14,11 @@ $name = mysql_real_escape_string($name);
 $pass = htmlentities($pass);
 $pass = mysql_real_escape_string($pass);
 
+if(strcmp(substr($name, -8), "@bcp.org") == 0)
+{
+    $name = substr($name, 0, -8);
+}
+
 $ldap = new LdapUser();
 
 $events = "";
