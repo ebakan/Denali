@@ -69,7 +69,7 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
         <br />
         <form name="myform" id="SignupForm" action="">
             <fieldset>
-                <legend>March 30, 10:20 – 11:10 AM</legend><br />
+                <legend>Friday March 30th, 10:20 – 11:10 AM</legend><br />
                 <div class="label">Title </div><div id="title1" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker1" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description1" style="text-align:center"></div><br />
@@ -83,7 +83,7 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
                 <div class="hidden" id="count1" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
-                <legend>March 30, 11:20 – 12:10 AM</legend><br />
+                <legend>Friday March 30th, 11:20 – 12:10 AM</legend><br />
                 <div class="label">Title </div><div id="title2" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker2" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description2" style="text-align:center"></div><br />
@@ -98,7 +98,7 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
 
             </fieldset>
             <fieldset>
-                <legend>April 2, 10:20 – 11:10 AM</legend><br />
+                <legend>Monday April 2nd, 10:20 – 11:10 AM</legend><br />
                 <div class="label">Title </div><div id="title3" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker3" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description3" style="text-align:center"></div><br />
@@ -112,7 +112,7 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
                 <div class="hidden" id="count3" style="visibility:hidden;"></div>
             </fieldset>
             <fieldset>
-                <legend>April 2, 11:20 – 12:10 AM</legend><br />
+                <legend>Monday April 2nd, 11:20 – 12:10 AM</legend><br />
                 <div class="label">Title </div><div id="title4" style="text-align:center"></div><br />
                 <div class="label">Speaker </div><div id="speaker4" style="text-align:center"></div><br />
                 <div class="label">Description </div><div id="description4" style="text-align:center"></div><br />
