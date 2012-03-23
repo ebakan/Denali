@@ -116,17 +116,17 @@
             switch(ts){
                 case 2:
                     var id = $("#title1").text();
-                    if(id == i)
+                    if(id == i && id!='Planned Absence')
                         return true;
                     break;
                 case 3:
                     var id = $("#title2").text();
-                    if(id == i)
+                    if(id == i && id!='Planned Absence')
                         return true;
                     break;
                 case 4:
                     var id = $("#title3").text();
-                    if(id == i)
+                    if(id == i && id!='Planned Absence')
                         return true;
                     break;
                 default: return false; break;
