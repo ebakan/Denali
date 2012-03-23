@@ -212,6 +212,8 @@ class system
      */
     public function registerStudent($idnum, $eid1, $eid2, $eid3, $eid4) {
         $idnum = mysql_escape_string($idnum);
+        $useragent = mysql_escape_string($_SERVER['HTTP_USER_AGENT']);
+        $ipaddr = mysql_escape_string($_SERVER['REMOTE_ADDR']);
 
         if (!$eid1) {
             $eid1 = 'NULL';
@@ -238,8 +240,8 @@ class system
         }
 
         $query = "INSERT INTO ".$this->registrationstable.
-            " (id, event1, event2, event3, event4, timestamp) ".
-            "VALUES ($idnum, $eid1, $eid2, $eid3, $eid4, NOW())";
+            " (id, event1, event2, event3, event4, timestamp, ipaddr, useragent) ".
+            "VALUES ($idnum, $eid1, $eid2, $eid3, $eid4, NOW(), '$ipaddr', '$useragent')";
         return mysql_query($query);
     }
 
