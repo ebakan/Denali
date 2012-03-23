@@ -293,8 +293,8 @@ class system
      */
     public function getRegisteredStudents($eid) {
         $eid = mysql_escape_string($eid);
-        $query = "SELECT * FROM ".$this->registrationstable." WHERE ".
-            "event1=$eid OR event2=$eid OR event3=$eid OR event4=$eid";
+        $query = "SELECT * FROM ".$this->studentdatatable." WHERE BCPStudID IN (SELECT id FROM ".
+            $this->registrationstable." WHERE event1=$eid OR event2=$eid OR event3=$eid OR event4=$eid)";
         return $this->query2D($query);
     }
 
@@ -315,6 +315,22 @@ class system
             "event3=$events.id OR event4=$events.id)<capacity)";
         $result = mysql_query($query);
         return mysql_num_rows($result) > 0;
+    }
+
+    /**
+     * Gets the info on a student
+     * Used on the event chekcer
+     * @param id the student id
+     * @return an array of student info from the database
+     */
+    public function getStudentInfo($id) {
+        $id = mysql_escape_string($id);
+        $query = "SELECT * FROM ".$this->studentdatatable." WHERE BCPStudID=$id";
+        $result = mysql_query($query);
+        if(!$result) {
+            return false;
+        }
+        return mysql_fetch_assoc($result);
     }
 
 

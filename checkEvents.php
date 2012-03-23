@@ -3,7 +3,6 @@ require_once("config.php");
 
 db_login();
 $system = new system();
-$system->getInstance();
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,128 +10,127 @@ $system->getInstance();
 <head>
 <title>Login Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src='jquery.hint-with-password.js' type='text/javascript'></script>
+<script type="text/javascript" charset="utf-8">
+    $(function(){ 
+        $('input[title!=""]').hint();
+    });
+    $(document).ready(function() {
+        $("#peoplesubmit").click(function(e) {
+            var val = $("#peopleinput").val();
+            $("#data").empty();
+            $.get("info.php","type=student&id="+val, function(data) {
+                data = $.parseJSON(data);
+                if(!data) {
+                    $("#data").append("<p>Uh oh, that ID number doesn't exist.</p>");
+                } else {
+                    $("#data").append("<p>Student ID: "+data.BCPStudID+"</p>"+
+                                      "<p>Name: "+data.StudFirstName+" "+data.StudLastName+"</p>");
+                    $.get("info.php","type=registrations&id="+val, function(data) {
+                        data = $.parseJSON(data);
+                        if(!data || data.length<4) {
+                            $("#data").append("<p>Uh oh, that student hasn't registered yet.</p>");
+                        } else {
+                            $("#data").append('<div class="ev evtop"><h2>First Event:</h2> \
+                <div class="label">Title </div><div id="title51" style="text-align:center">'+data[1].title+'</div><br /> \
+                <div class="label">Speaker </div><div id="speaker51" style="text-align:center">'+data[1].speaker+'</div><br /> \
+                <div class="label">Description </div><div id="description51" style="text-align:center">'+data[1].description+'</div><br /> \
+                <div class="label">Length (Mins)</div><div id="description51" style="text-align:center">'+data[1].length+'</div><br /> \
+                <div class="label">Room </div><div id="location51" style="text-align:center">'+data[1].location+'</div><br /> \
+                <div class="label">Email </div><div id="location51" style="text-align:center">'+data[1].email+'</div><br /> \
+            </div> \
+            <div class="ev evtop"><h2>Second Event:</h2> \
+                <div class="label">Title </div><div id="title52" style="text-align:center">'+data[2].title+'</div><br /> \
+                <div class="label">Speaker </div><div id="speaker52" style="text-align:center">'+data[2].speaker+'</div><br /> \
+                <div class="label">Description </div><div id="description52" style="text-align:center">'+data[2].description+'</div><br /> \
+                <div class="label">Length (Mins)</div><div id="description52" style="text-align:center">'+data[2].length+'</div><br /> \
+                <div class="label">Room </div><div id="location52" style="text-align:center">'+data[2].location+'</div><br /> \
+                <div class="label">Email </div><div id="location52" style="text-align:center">'+data[2].email+'</div><br /> \
+            </div> \
+            <div class="ev evtop"><h2>Third Event:</h2> \
+                <div class="label">Title </div><div id="title53" style="text-align:center">'+data[3].title+'</div><br /> \
+                <div class="label">Speaker </div><div id="speaker53" style="text-align:center">'+data[3].speaker+'</div><br /> \
+                <div class="label">Description </div><div id="description53" style="text-align:center">'+data[3].description+'</div><br /> \
+                <div class="label">Length (Mins)</div><div id="description53" style="text-align:center">'+data[3].length+'</div><br /> \
+                <div class="label">Room </div><div id="location53" style="text-align:center">'+data[3].location+'</div><br /> \
+                <div class="label">Email </div><div id="location53" style="text-align:center">'+data[3].email+'</div><br /> \
+            </div> \
+            <div class="ev"><h2>Fourth Event:</h2> \
+                <div class="label">Title </div><div id="title54" style="text-align:center">'+data[4].title+'</div><br /> \
+                <div class="label">Speaker </div><div id="speaker54" style="text-align:center">'+data[4].speaker+'</div><br /> \
+                <div class="label">Description </div><div id="description54" style="text-align:center">'+data[4].description+'</div><br /> \
+                <div class="label">Length (Mins)</div><div id="description54" style="text-align:center">'+data[4].length+'</div><br /> \
+                <div class="label">Room </div><div id="location54" style="text-align:center">'+data[4].location+'</div><br /> \
+                <div class="label">Email </div><div id="location54" style="text-align:center">'+data[4].email+'</div><br /> \
+            </div> \
+            </fieldset>'
+                        );
+                        }
+                    });
+                }
+        });
+    });
+        $("#peopleinput").keypress(function(e) {
+            if(e.which == 13) {
+                $("#peoplesubmit").click();
+            }
+        });
+        $("#eventselect").change(function() {
+            var val = $("#eventselect").val();
+            $("#data").empty();
+            $.get("info.php","type=event&id="+val, function(data) {
+                data = $.parseJSON(data);
+                var num = data.length;
+                if(!data) {
+                    $("#data").append("<p>No signups for this event yet!</p>");
+                } else {
+                   outVal="<p>"+num+" Total Signups</p><table id='datalist'><tr><th>Student ID</th><th>Name</th></tr>";
+                    $(data).each( function(i) {
+                        var d = data[i];
+                        outVal+="<tr><td>"+d.BCPStudID+"</td><td>"+d.StudFirstName+" "+d.StudLastName+"</td></tr>";
+                    });
+                   outVal+="</table>";
+                    $("#data").append(outVal);
+                }
+            });
+        });
+    });
+</script>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <style type="text/css">
 html{text-align:center;}
-.form{margin-left:auto; margin-right:auto; width:420px; margin-top:100px;}
-.label{float:left; width:200px; text-align:left !important;}
-.input{float:left; width:200px;}
-#evLu{width: 400px; margin-top:40px;}
-#spacer{margin-top:10px;}
-#message{margin-top:20px;}
-#mySelect { margin-left:auto; margin-top:10px; width:300px; }
-#log {float:left;}
-br {clear:both;}
-
+#eventselect {
+    width: 300px;
+}
 </style>
-
-<script type="text/javascript" src="jquery.js"></script>          
 </head>
 
 <body>
-<a id="log" href="login.php">Back to Login</a>
-<h2 id="message"> Look Up </h2>
-<form class="form" method="post" action="#">
-<div class ="label">Look up events by studentID: </div><div class="input"><input name="stid" type="text" id="stid" size="15" maxlength="30" /><div>
-
-<input type="submit" id="spacer" name="Submit" value="Submit" />
-</form>
-<div id="message">
+<a href="removeCookie.php" id="lo">Logout</a>
+<h2 id="reg">Immigration Summit Registration</h2>
+<div id="header">
+<img src="bell.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
+<span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
+</div>
+<div id="review">
+<h2>Check out who's going to an event!.</h2>
+<select id="eventselect">
 <?php
-if(isset($_POST['Submit']))
-    {
-        $success = true;
-        $studentid = $_POST['stid'];
-        $studentid = htmlentities($studentid);
-        $studentid = mysql_real_escape_string($studentid);
-
-       $arr = $system->displayByID($studentid); 
-       if(!($arr))
-           { echo "No Results Found."; $success = false; }
-
-            $evs = explode("|", $arr);
-
-        if($success && strcmp($evs[0], "") != 0){
-            //get name of student
-            $namesql = "SELECT * from people WHERE studentID=".$studentid;
-            if(!($result = mysql_query($namesql)))
-                header("Location: login.php?error=2");
-            $namearr = mysql_fetch_array($result);
-            $studname = $namearr['name'];
-
-            //get name of events 
-            echo "Events for ".$studname.": <br />";
-            for($i = 0; $i < sizeof($evs); $i++){
-                $evsql = "SELECT * from events WHERE id=".$evs[$i];
-                if(!($result = mysql_query($evsql)))
-                    header("Location: login.php?error=2");
-                while($row = mysql_fetch_array($result))
-                    echo $row['name']."<br />";
-            }      
-        }else if($success)
-            echo "No Results Found.";
+$events = $system->getAllEvents();
+for($i=1; $i<=4; $i++) {
+    foreach($events[$i] as $event) {
+        echo "<option value='".$event['id']."'>Sess. $i: ".$event['title']."</option>\n";
     }
+}
 ?>
+</select>
+<h2>Check out what events people are going to!.</h2>
+<input name="people" type="text" id="peopleinput" title="Student ID Number">
+<input type="submit" id="peoplesubmit" value="Submit" />
+<div id="data">
+</div>
 </div>
 
-
-<div class ="label" id="evLu">Look up students in each event: </div>
-<select id="mySelect" multiple="multiple"></select>
-<div id="message_display"></div>
-
-    <script type="text/javascript">                                         
-
-//Gets users as Value and name of event as Text in array
-var myOptions = {
-
-    <?php
-        db_login();
-        $sql = "SELECT * from events";
-        if(!($result = mysql_query($sql)))
-            header("Location: login.php?error=2");
-        
-        
-        while($row = mysql_fetch_array($result))
-        {
-            $ppl = $system->displayByEvent($row['id']);
-            $ppls = explode("|", $ppl);
-            //echo "'test' : '".$row['name']."', ";
-           if(sizeof($ppls) > 0)
-            {
-                echo "'";    
-                for($i = 0; $i < sizeof($ppls); $i++)
-                {
-                    if($i === sizeof($ppls)-1)
-                        echo $ppls[$i]."' : '".$row['name']."', ";
-                    else
-                        echo $ppls[$i].", ";
-
-                }
-            }
-
-        }
-
-    ?>
-
-};
-
-//Fills mySelect with options
-$.each(myOptions, function(val, text) {
-    $('#mySelect').append(
-        $('<option></option>').val(val).html(text)
-    );
-});
-
-//Displays value of each event (people) when the option
-//is selected
-$("#mySelect").change(function () {
-    var str = "";
-    $("select#mySelect option:selected").each(function () {
-        str += $(this).val();
-    });
-    $("#message_display").text(str);
-})
-.trigger('change');
-            
-</script>
 </body>
 </html>

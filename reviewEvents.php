@@ -70,6 +70,9 @@ html{text-align:center;}
 <img src="bell.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
 <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
 </div>
+<div id="info">
+<p>Thank you for signing up! Your registrations are displayed below. For assistance please contact <a href="mailto:blindemann@bcp.org">Brad Lindemann</a>.</p>
+</div>
 <div id="review">
     <fieldset>
         <div class="ev evtop"><h2>First Event:</h2>

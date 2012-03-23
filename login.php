@@ -86,7 +86,7 @@ if(isset($_GET['error']))
 <input type="submit" id="spacer" value="Submit" />
 <br />
 <br />
-<a id="spacer" href="checkEvents.php">Check Events</a>
+<a id="spacer" href="checkEvents.php">Current Registrations</a>
 </form>
 </body>
 </html>
