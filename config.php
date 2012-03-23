@@ -97,9 +97,20 @@ class system
     public function getValidEvents($id) {
         $id = mysql_escape_string($id);
         $outArray = array();
-        for($i = 1; $i <= 4; $i++) {
-            $result = $this->getValidEventsByTimeslot($id, $i);
-            if(!$result) {
+        // Work backwards because we need to 
+        for ($i = 4; $i >= 1; $i--) {
+            // Disable long events if there's a required event in the next one
+            $noLongs = false;
+            if ($i<4) {
+                foreach($outArray[$i+1] as $event) {
+                    if(!is_null($event['required'])) {
+                        $noLongs=true;
+                        break;
+                    }
+                }
+            }
+            $result = $this->getValidEventsByTimeslot($id, $i, $noLongs);
+            if (!$result) {
                 return false;
             }
             $outArray[$i] = $result;
@@ -117,7 +128,7 @@ class system
      *                       the number of people signed up for it
      *         or false on error
      */
-    public function getValidEventsByTimeslot($id, $timeslot) {
+    public function getValidEventsByTimeslot($id, $timeslot, $noLongs = false) {
         $id = mysql_escape_string($id);
         $year = substr($id,1,2);
         $grade = 24-intval($year);
@@ -150,6 +161,10 @@ class system
             // Make sure capacity is less than 0 (unlimited) or the current count is less than the capacity
             "AND (capacity<0 OR (SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
             "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity)";
+        // Disable long events
+        if($noLongs) {
+            $query .= " AND length<100";
+        }
         return $this->query2D($query);
     }
 
