@@ -155,6 +155,31 @@
             else
                 islongnext = false;
 
+
+            switch($(".current").attr("id")) {
+              case "stepDesc0":
+                var count = $("#count1").text();
+                var capacity = $("#capacity1").text();
+                $("#spots1").text(count + " / " + capacity);
+              break;
+              case "stepDesc1":
+                var count = $("#count2").text();
+                var capacity = $("#capacity2").text();
+                $("#spots2").text(count + " / " + capacity);
+              break;
+              case "stepDesc2":
+                var count = $("#count3").text();
+                var capacity = $("#capacity3").text();
+                $("#spots3").text(count + " / " + capacity);
+              break;
+              case "stepDesc3":
+                var count = $("#count4").text();
+                var capacity = $("#capacity4").text();
+                $("#spots4").text(count + " / " + capacity);
+              break;
+              default:
+              break;
+            }
         }).trigger('change');
 
         /**

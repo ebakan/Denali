@@ -78,10 +78,11 @@ else if(isset($_POST['Submit']))
                 <div class="label">Description </div><div id="description1" style="text-align:center"></div><br />
                 <div id="timeslot1" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length1" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location1" style="text-align:center"></div><br />
-                <div class="label">Capacity </div><div id="capacity1" style="text-align:center"></div><br />
-                <div class="label">Email </div><div id="email1" style="text-align:center"></div><br />
-                <div id="count1" style="visibility:hidden"></div>
+                <div class="label">Room </div><div id="location1" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity1" style="text-align:center; visibility:hidden;"></div>
+                <div class="label">Email </div><div id="email1" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Count </div><div id="count1" style="text-align:center;visbility: hidden;"></div>
+                <div class="label">Spots Available </div><div id="spots1" style="text-align:center"></div><br />
             </fieldset>
             <fieldset>
                 <div id="id1" style="visibility:hidden"></div>
@@ -90,10 +91,12 @@ else if(isset($_POST['Submit']))
                 <div class="label">Description </div><div id="description2" style="text-align:center"></div><br />
                 <div id="timeslot2" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length2" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location2" style="text-align:center"></div><br />
-                <div class="label">Capacity </div><div id="capacity2" style="text-align:center"></div><br />
-                <div class="label">Email </div><div id="email2" style="text-align:center"></div><br />
-                <div id="count2" style="visibility:hidden"></div>
+                <div class="label">Room </div><div id="location2" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity2" style="text-align:center; visibility: hidden;"></div>
+                <div class="label">Email </div><div id="email2" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Count </div><div id="count2" style="text-align:center; visibility:hidden;"></div>
+                <div class="label">Spots Available </div><div id="spots2" style="text-align:center"></div><br />
+
             </fieldset>
             <fieldset>
                 <div id="id3" style="visibility:hidden"></div>
@@ -102,10 +105,11 @@ else if(isset($_POST['Submit']))
                 <div class="label">Description </div><div id="description3" style="text-align:center"></div><br />
                 <div id="timeslot3" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length3" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location3" style="text-align:center"></div><br />
-                <div class="label">Capacity </div><div id="capacity3" style="text-align:center"></div><br />
-                <div class="label">Email </div><div id="email3" style="text-align:center"></div><br />
-                <div id="count3" style="visibility:hidden"></div>
+                <div class="label">Room </div><div id="location3" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity3" style="text-align:center; visbility:hidden;"></div>
+                <div class="label">Email </div><div id="email3" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Count </div><div id="count3" style="text-align:center; visiblity:hidden;"></div>
+                <div class="label">Spots Available </div><div id="spots3" style="text-align:center"></div><br />
             </fieldset>
             <fieldset>
                 <div id="id4" style="visibility:hidden"></div>
@@ -114,10 +118,11 @@ else if(isset($_POST['Submit']))
                 <div class="label">Description </div><div id="description4" style="text-align:center"></div><br />
                 <div id="timeslot4" style="visibility:hidden"></div>
                 <div class="label">Length(Mins) </div><div id="length4" style="text-align:center"></div><br />
-                <div class="label">Room </div><div id="location4" style="text-align:center"></div><br />
-                <div class="label">Capacity </div><div id="capacity4" style="text-align:center"></div><br />
-                <div class="label">Email </div><div id="email4" style="text-align:center"></div><br />
-                <div id="count4" style="visibility:hidden"></div>
+                <div class="label">Room </div><div id="location4" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Capacity </div><div id="capacity4" style="text-align:center; visibility:hidden;"></div>
+                <div class="label">Email </div><div id="email4" style="text-align:center"></div>
+                <div class="label" style="visibility:hidden">Count </div><div id="count4" style="text-align:center; visibility:hidden;"></div>
+                <div class="label">Spots Available </div><div id="spots4" style="text-align:center"></div><br />
             </fieldset>
             <fieldset>
                 <div class="ev"> First Event:<br /> <br />
