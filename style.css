@@ -81,7 +81,7 @@ input[type=text], input[type=password] {
     display:block;
 }
 #steps li.current {
-    color:#000;
+    color:#0033CC;
 }
 #makeWizard {
     background-color:#b0232a;
