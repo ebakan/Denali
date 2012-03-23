@@ -247,18 +247,30 @@
                 $("#mySelect").hide();
 
                 for(var x = 1; x <= 4; x++){
+                   var longEv = $("#title" + x).attr('class');
                    var y = $("#title" + x).text();
-                   $("#title5" + x).text(y); 
+                   if(longEv == "NULL")
+                       $("#title5" + x).text("Long event placeholder."); 
+                   else
+                       $("#title5" + x).text(y); 
                 }
 
                 for(var x = 1; x <= 4; x++){
+                   var longEv = $("#speaker" + x).attr('class');
                    var y = $("#speaker" + x).text();
-                   $("#speaker5" + x).text(y); 
+                   if(longEv == "NULL")
+                       $("#speaker5" + x).text("Long event placeholder."); 
+                   else
+                       $("#speaker5" + x).text(y); 
                 }
 
                 for(var x = 1; x <= 4; x++){
+                   var longEv = $("#location" + x).attr('class');
                    var y = $("#location" + x).text();
-                   $("#location5" + x).text(y); 
+                   if(longEv == "NULL")
+                       $("#location5" + x).text("Long event placeholder."); 
+                   else
+                       $("#location5" + x).text(y); 
                 }
 
 
