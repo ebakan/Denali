@@ -28,7 +28,9 @@ $system = new system();
                     $("#data").append("<p>Student ID: "+data.BCPStudID+"</p>"+
                                       "<p>Name: "+data.StudFirstName+" "+data.StudLastName+"</p>");
                     $.get("info.php","type=registrations&id="+val, function(data) {
+                        console.log(data);
                         data = $.parseJSON(data);
+                        console.log(data);
                         if(!data || data.length<4) {
                             $("#data").append("<p>Uh oh, that student hasn't registered yet.</p>");
                         } else {
