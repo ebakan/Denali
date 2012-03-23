@@ -88,5 +88,6 @@ if(isset($_GET['error']))
 <br />
 <a id="spacer" href="checkEvents.php">Check Events</a>
 </form>
+<p id="writtenby">Written by Jonathon Elfar and Eric Bakan</p>
 </body>
 </html>

@@ -208,3 +208,6 @@ input.blur {
     margin-left: auto;
     margin-right: auto;
 }
+#writtenby {
+    color: #999;
+}

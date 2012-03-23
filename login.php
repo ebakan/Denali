@@ -67,7 +67,6 @@ if(isset($_GET['success']))
         echo "You successfully registered.";
 if(isset($_GET['error']))
     switch($_GET['error']){
-    
     case 0:
         echo "Please e-enter your email address and password.";
         break;
@@ -88,5 +87,6 @@ if(isset($_GET['error']))
 <br />
 <a id="spacer" href="checkEvents.php">Current Registrations</a>
 </form>
+<p id="writtenby">Written by Jonathon Elfar and Eric Bakan</p>
 </body>
 </html>
