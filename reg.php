@@ -9,7 +9,7 @@ else
     //header("Location: login.html");
 */
 if(!$cookie->verifyCookie())
-    header("Location: login.php");
+    header("Location: index.php");
 
 
 $system = new system();
@@ -28,7 +28,7 @@ $data = $system->getValidEvents($id);
     }
 
     if(!isset($_SESSION['uid']))
-        header("Location: login.php");
+        header("Location: index.php");
 
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";

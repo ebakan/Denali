@@ -409,10 +409,11 @@
                             "regstuds.php",
                           info + "&id=" + uid,
                             function(data) {
-                                if(data == 1)
+                               realData = $.trim(data);
+                                if(realData == 1)
                                     window.location = "reviewEvents.php"
                                 else
-                                    window.location = "login.php"
+                                    window.location = "index.php"
 
                             },
                             "text");

@@ -3,7 +3,7 @@ require("config.php");
 require("LdapUser.php");
 
 if(!isset($_POST['name']) || !isset($_POST['pass']))
-    header("Location: login.php");
+    header("Location: index.php");
 
 $name = $_POST['name'];
 $pass = $_POST['pass'];
@@ -27,7 +27,7 @@ $events = "";
 
 if(!($id = $ldap->auth($name, $pass)))
 //    if(!$cookie->verifyCookie())
-        header("Location: login.php?error=0");
+        header("Location: index.php?error=0");
 else{
     $hashkey = $name;
     $hashkey .= SALT;
