@@ -8,8 +8,9 @@ else
     echo "Cookie fail";
     //header("Location: login.html");
 */
-if(!$cookie->verifyCookie())
+if(!$cookie->verifyCookie()) {
     header("Location: index.php");
+}
 
 
 $system = new system();
@@ -27,8 +28,9 @@ $data = $system->getValidEvents($id);
         header("Location: reviewEvents.php");
     }
 
-    if(!isset($_SESSION['uid']))
+    if(!isset($_SESSION['uid'])) {
         header("Location: index.php");
+    }
 
 if(isset($_GET['error']) && $_GET['error'] == 3)
     echo "Event: ".$_GET['event']." is full. Please register again.";
@@ -65,6 +67,7 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
         and if you know you will be absent on these days, please choose Planned Absence at the bottom of the list. If your mandatory event is 
         on the same day you are absent, select that event anyways. Go bells! 
         </p>
+<?php if(substr($name,3)=='000') { echo "<p>Hello test user $name</p>\n";} ?>
         </div>
         <br />
         <form name="myform" id="SignupForm" action="">

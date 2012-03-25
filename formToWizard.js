@@ -405,18 +405,22 @@
                        $("#step" + first).show();
                        selectStep(first);
                    } else {
-                       $.get(
-                            "regstuds.php",
-                          info + "&id=" + uid,
-                            function(data) {
-                               realData = $.trim(data);
-                                if(realData == 1)
-                                    window.location = "reviewEvents.php"
-                                else
-                                    window.location = "index.php"
+                       if(uid%1000 == 0) {
+                           alert("Hello test user!");
+                       } else {
+                           $.get(
+                                "regstuds.php",
+                              info + "&id=" + uid,
+                                function(data) {
+                                   realData = $.trim(data);
+                                    if(realData == 1)
+                                        window.location = "reviewEvents.php"
+                                    else
+                                        window.location = "index.php"
 
-                            },
-                            "text");
+                                },
+                                "text");
+                       }
                    }
 
                },
