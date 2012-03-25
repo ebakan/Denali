@@ -11,6 +11,7 @@ class system
     private $eventstable;
     private $registrationstable;
     private $studentdatatable;
+    private $logtable;
     /** Having an empty constructor and just declaring names in here makes it easy
      *  In the future this might be changed to be more extensible, but I'm lazy
      */
@@ -24,6 +25,7 @@ class system
         $this->eventstable = mysql_real_escape_string($GLOBALS["table_events"]);
         $this->registrationstable = mysql_real_escape_string($GLOBALS["table_registrations"]);
         $this->studentdatatable = mysql_real_escape_string($GLOBALS["table_studentdata"]);
+        $this->logtable = mysql_real_escape_string($GLOBALS["table_log"]);
     }
 
     // Student-facing functions
@@ -187,6 +189,20 @@ class system
         $query = "INSERT INTO ".$this->registrationstable.
             " (id, event1, event2, event3, event4, timestamp, ipaddr, useragent) ".
             "VALUES ($idnum, $eid1, $eid2, $eid3, $eid4, NOW(), '$ipaddr', '$useragent')";
+        return mysql_query($query);
+    }
+
+    /**
+     * Logs a student with an error into the database
+     * @param $id the user id of the student
+     * @param $err a string that represents an error
+     * @return either true or false
+     */
+    public function logStudent($id, $err)
+    {
+        $query = "INSERT INTO ".$this->logtable.
+            " (uid, error, timestamp) ".
+            "VALUES ($id, $err, NOW())";
         return mysql_query($query);
     }
 
