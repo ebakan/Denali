@@ -40,7 +40,6 @@ $ldap = new LdapUser();
 $events = "";
 
 
-
 if(!($id = $ldap->auth($name, $pass))) {
 //    if(!$cookie->verifyCookie())
         header("Location: index.php?error=0");
