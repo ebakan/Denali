@@ -59,7 +59,7 @@ if(isset($_GET['error']) && $_GET['error'] == 3)
 
 <div class="main" >
         <div id="header">
-            <img src="bell.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
+            <img src="bell2.png" alt="Bellarmine Immigration Summit" style="height:150px; width:150px;"/>
             <span id="info" style="display:none;">You don't have to fill the form, really. Just click on Next and Back to see the demo.</span></p>
         </div>
         <div id="info">
