@@ -5,7 +5,7 @@ require("LdapUser.php");
 if(!isset($_POST['name']) || !isset($_POST['pass']))
     header("Location: index.php");
 
-$name = $_POST['name'];
+$name = trim(strtolower($_POST['name']));
 $pass = $_POST['pass'];
 $studid = $_POST['pass'];
 $system = new system();
