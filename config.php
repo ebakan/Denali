@@ -142,8 +142,8 @@ class system
             // Make sure the event is not restricted or we have access to it
             "AND (restricted IS NULL OR FIND_IN_SET('$grade',restricted)>0) ".
             // Make sure capacity is less than 0 (unlimited) or the current count is less than the capacity
-            "AND (capacity<0 OR (SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
-            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity)";
+            "AND (SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity";
         // Disable long events
         if($noLongs) {
             $query .= " AND length<100";
