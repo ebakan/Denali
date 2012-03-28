@@ -66,6 +66,41 @@ class system
     }
 
     /**
+     * Get all the current events which aren't already full
+     * Sorts by "fullness" ascending
+     * Would be used when showing a student which slots he can sign up for
+     * @param id the student id
+     * @return a 3D array of timeslot -> 
+     *                       array of available events for the timeslot ->
+     *                       associative array of database data for each event plus
+     *                       the fullness
+     *         or false on error
+     */
+    public function getValidEventsRandom($id) {
+        $id = mysql_escape_string($id);
+        $outArray = array();
+        // Work backwards because we need it to
+        for ($i = 4; $i >= 1; $i--) {
+            // Disable long events if there's a required event in the next one
+            $noLongs = false;
+            if ($i<4) {
+                foreach($outArray[$i+1] as $event) {
+                    if(!is_null($event['required'])) {
+                        $noLongs=true;
+                        break;
+                    }
+                }
+            }
+            $result = $this->getValidEventsByTimeslotRandom($id, $i, $noLongs);
+            if (!$result) {
+                return false;
+            }
+            $outArray[$i] = $result;
+        }
+        return $outArray;
+    }
+
+    /**
      * Get all the current events for a timeslot which aren't already full
      * Would be used when asking a student to change a single timeslot registration
      * @param id the student id
@@ -113,6 +148,59 @@ class system
         if($noLongs) {
             $query .= " AND length<100";
         }
+        return $this->query2D($query);
+    }
+
+    /**
+     * Get all the current events for a timeslot which aren't already full
+     * Sorts by "fullness" ascending
+     * Would be used when asking a student to change a single timeslot registration
+     * @param id the student id
+     * @param timeslot the timeslot to list events for
+     * @param noLongs whether long events should be disabled or not
+     * @return a 2D array of available events for the timeslot ->
+     *                       associative array of database data for each event plus
+     *                       fullness
+     *         or false on error
+     */
+    public function getValidEventsByTimeslotRandom($id, $timeslot, $noLongs = false) {
+        $id = mysql_escape_string($id);
+        $year = substr($id,1,2);
+        $grade = 24-intval($year);
+        $timeslot = mysql_escape_string($timeslot);
+        $events = $this->eventstable;
+        // Check if there is a restricted event for this person
+        // mMOAQ - mini Mother Of All Queries
+        // Basic select
+        $query = "SELECT *, ".
+            // Subquery for count
+            "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id) as count ".
+            // Check for timeslot and the restricted year
+            "FROM $events WHERE timeslot=$timeslot AND required=$grade";
+        $restricted = $this->query2D($query);
+        // Return this if there is a result
+        if($restricted && count($restricted)>0) {
+            return $restricted;
+        }
+        // No restricted events, do the full MOAQ - mother of all queries
+        // Basic select
+        $query = "SELECT *, ".
+            // Add subquery for count
+            "(SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)/capacity as fullness ".
+            // Check for timeslot and not a required event (for other classes)
+            "FROM $events WHERE timeslot=$timeslot AND required IS NULL ".
+            // Make sure the event is not restricted or we have access to it
+            "AND (restricted IS NULL OR FIND_IN_SET('$grade',restricted)>0) ".
+            // Make sure capacity is less than 0 (unlimited) or the current count is less than the capacity
+            "AND (capacity<0 OR (SELECT COUNT(*) FROM ".$this->registrationstable." WHERE ".
+            "event1=$events.id OR event2=$events.id OR event3=$events.id OR event4=$events.id)<capacity)";
+        // Disable long events
+        if($noLongs) {
+            $query .= " AND length<100";
+        }
+        $query .= "ORDER BY fullness ASC";
         return $this->query2D($query);
     }
 
