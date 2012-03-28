@@ -28,6 +28,12 @@ class system
         $this->logtable = mysql_real_escape_string($GLOBALS["table_log"]);
     }
 
+    public function getStragglers() {
+    $query = "SELECT * FROM ".$this->studentdatatable." WHERE BCPStudID NOT IN ".
+       "(SELECT id FROM ".$this->registrationstable.")";
+    return $this->query2D($query);
+    }
+
     // Student-facing functions
     // For use on the student-facing site
 
