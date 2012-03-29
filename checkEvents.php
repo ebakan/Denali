@@ -32,7 +32,7 @@ $system = new system();
                         if(!data || data.length<4) {
                             $("#data").append("<p>Uh oh, that student hasn't registered yet.</p>");
                         } else {
-                            $("#data").append('<div class="ev evtop"><h2>First Event:</h2> \
+                            $("#data").append('<div class="ev evtop"><h2>First Event(Friday March 30th, 10:20 – 11:10 AM):</h2> \
                                                    <div class="label">Title </div><div id="title51" style="text-align:center">'+data[1].title+'</div><br /> \
                                                    <div class="label">Speaker </div><div id="speaker51" style="text-align:center">'+data[1].speaker+'</div><br /> \
                                                    <div class="label">Description </div><div id="description51" style="text-align:center">'+data[1].description+'</div><br /> \
@@ -40,7 +40,7 @@ $system = new system();
                                                    <div class="label">Room </div><div id="location51" style="text-align:center">'+data[1].location+'</div><br /> \
                                                    <div class="label">Email </div><div id="location51" style="text-align:center">'+data[1].email+'</div><br /> \
                                                </div> \
-                                               <div class="ev evtop"><h2>Second Event:</h2> \
+                                               <div class="ev evtop"><h2>Second Event(Friday March 30th, 11:20 – 12:10 AM):</h2> \
                                                    <div class="label">Title </div><div id="title52" style="text-align:center">'+data[2].title+'</div><br /> \
                                                    <div class="label">Speaker </div><div id="speaker52" style="text-align:center">'+data[2].speaker+'</div><br /> \
                                                    <div class="label">Description </div><div id="description52" style="text-align:center">'+data[2].description+'</div><br /> \
@@ -48,7 +48,7 @@ $system = new system();
                                                    <div class="label">Room </div><div id="location52" style="text-align:center">'+data[2].location+'</div><br /> \
                                                    <div class="label">Email </div><div id="location52" style="text-align:center">'+data[2].email+'</div><br /> \
                                                </div> \
-                                               <div class="ev evtop"><h2>Third Event:</h2> \
+                                               <div class="ev evtop"><h2>Third Event(Monday April 2nd, 10:20 – 11:10 AM):</h2> \
                                                    <div class="label">Title </div><div id="title53" style="text-align:center">'+data[3].title+'</div><br /> \
                                                    <div class="label">Speaker </div><div id="speaker53" style="text-align:center">'+data[3].speaker+'</div><br /> \
                                                    <div class="label">Description </div><div id="description53" style="text-align:center">'+data[3].description+'</div><br /> \
@@ -56,7 +56,7 @@ $system = new system();
                                                    <div class="label">Room </div><div id="location53" style="text-align:center">'+data[3].location+'</div><br /> \
                                                    <div class="label">Email </div><div id="location53" style="text-align:center">'+data[3].email+'</div><br /> \
                                                </div> \
-                                               <div class="ev"><h2>Fourth Event:</h2> \
+                                               <div class="ev"><h2>Fourth Event(Monday April 2nd, 11:20 – 12:10 AM):</h2> \
                                                    <div class="label">Title </div><div id="title54" style="text-align:center">'+data[4].title+'</div><br /> \
                                                    <div class="label">Speaker </div><div id="speaker54" style="text-align:center">'+data[4].speaker+'</div><br /> \
                                                    <div class="label">Description </div><div id="description54" style="text-align:center">'+data[4].description+'</div><br /> \
