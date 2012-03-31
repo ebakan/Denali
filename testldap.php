@@ -1,6 +1,14 @@
 <?php 
+
+//    require("config.php");
+  //  $system = new system();
+   // session_start();
+    //$stud = $_session['uname'];
+
 class LdapUser 
 {
+
+
     var $name = 'LdapUser';
     var $useTable = false;
 
@@ -12,7 +20,6 @@ class LdapUser
 
     var $ds;
 
-    $stud = $_SESSION['uname'];
 
     function __construct()
     {
@@ -20,6 +27,7 @@ class LdapUser
     	$this->ds = ldap_connect($this->host, $this->port);
     	ldap_set_option($this->ds, LDAP_OPT_PROTOCOL_VERSION, 3);
     	ldap_bind($this->ds, $this->user, $this->pass) or die("FUU");
+
     }
 
     function __destruct()
@@ -48,19 +56,34 @@ class LdapUser
 
 	    if($result[0])
 	    {
-		if (ldap_bind($this->ds, $result[0]['dn'], $password))
+		if ($ldap_bind($this->ds, $result[0]['dn'], $password))
 		    {
 			return $result[0]['description'][0];
 		    }
 		    else
 		    {
+            require("config.php");
+            $system = new system();
+            session_start();
+            $stud = $_session['uname'];
+
+            $system->logStudent($stud, $result);
 			return false;
 		    }
 	    }
 	    else
 	    {
-		return false;
+            require_once("config.php");
+            $system = new system();
+            session_start();
+            $stud = $_session['uname'];
+
+            $system->logStudent($stud, $result);
+            return false;
 	    }
    } 
 }
+
+$ldap = new LdapUser();
+$ldap->auth("test", "Test");
 ?> 
