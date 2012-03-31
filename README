@@ -2,4 +2,6 @@ Authors:
 Eric Bakan
 Jonathon Elfar
 
-We do werk
+PHP/MySQL-based system for Bellarmine's 2012 Immigration Summit.
+Guides 1600 students through the process of requesting 4 of ~90 possible seminars, given restrictions based on grade, seminar length, and timeslot-specific complications.
+Built as a project for the Spring 2012 Web Application Development class.
